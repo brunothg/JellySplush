@@ -1,5 +1,10 @@
 package de.bno.jellysplush;
 
+import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import game.engine.frame.SwingGameFrame;
 import game.engine.image.InternalImage;
 
 import javax.swing.UIManager;
@@ -8,11 +13,32 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Main {
 
 	public static final String IMAGE_PATH = "/de/bno/jellysplush/images/";
+	public static final Dimension WINDOW_SIZE = new Dimension(500, 500);
 
 	public static void main(String[] args) {
 
 		setLaF();
 		setupInternalImage();
+
+		setupWindow();
+	}
+
+	private static void setupWindow() {
+
+		final SwingGameFrame display = new SwingGameFrame("JellySplush");
+		display.setLocationRelativeTo(null);
+		display.setSize(WINDOW_SIZE.width, WINDOW_SIZE.height);
+
+		display.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+
+				display.setSize(WINDOW_SIZE.width, WINDOW_SIZE.height, true);
+				display.setResizable(false);
+			}
+		});
+
+		display.setVisible(true);
 	}
 
 	private static void setupInternalImage() {
