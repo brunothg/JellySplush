@@ -13,7 +13,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Main {
 
 	public static final String IMAGE_PATH = "/de/bno/jellysplush/images/";
-	public static final Dimension WINDOW_SIZE = new Dimension(500, 500);
+	public static final Dimension WINDOW_SIZE = new Dimension(700, 700);
 
 	public static void main(String[] args) {
 
@@ -34,7 +34,6 @@ public class Main {
 			public void windowOpened(WindowEvent e) {
 
 				display.setSize(WINDOW_SIZE.width, WINDOW_SIZE.height, true);
-				display.setResizable(false);
 			}
 		});
 
