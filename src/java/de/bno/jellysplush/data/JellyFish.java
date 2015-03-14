@@ -6,21 +6,21 @@ public class JellyFish {
 
 	private Position pos = new Position();
 
-	private Controller controller;
+	private GameController controller;
 	private Color color;
 
-	public JellyFish(Controller controller) {
+	public JellyFish(GameController controller) {
 
 		this(controller, new Color((int) Math.random() * 255,
 				(int) Math.random() * 255, (int) Math.random() * 255));
 	}
 
-	public JellyFish(Controller controller, Color c) {
+	public JellyFish(GameController controller, Color c) {
 
 		this(0, 0, controller, c);
 	}
 
-	public JellyFish(int x, int y, Controller controller, Color c) {
+	public JellyFish(int x, int y, GameController controller, Color c) {
 
 		if (controller == null) {
 			throw new NullPointerException("A controller is required.");
@@ -83,7 +83,7 @@ public class JellyFish {
 		return controller.isMovingDown();
 	}
 
-	public static JellyFish[] fromController(final Controller... controllers) {
+	public static JellyFish[] fromController(final GameController... controllers) {
 
 		if (controllers == null) {
 			return null;

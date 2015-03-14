@@ -2,7 +2,7 @@ package de.bno.jellysplush.data;
 
 import java.util.Arrays;
 
-public abstract class Controller {
+public abstract class GameController {
 
 	public static final int DIRECTION_LEFT = 0x00;
 	public static final int DIRECTION_RIGHT = 0x01;
@@ -14,7 +14,7 @@ public abstract class Controller {
 	 */
 	private boolean[] movement = new boolean[4];
 
-	public Controller() {
+	public GameController() {
 
 		Arrays.fill(movement, false);
 	}

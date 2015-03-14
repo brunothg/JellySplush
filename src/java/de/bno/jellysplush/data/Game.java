@@ -5,7 +5,7 @@ public class Game {
 	private PlayGround playground;
 	private JellyFish[] jellyFishs;
 
-	public Game(Controller... controllers) {
+	public Game(GameController... controllers) {
 
 		this(JellyFish.fromController(controllers));
 	}
@@ -16,7 +16,7 @@ public class Game {
 				jellyFishs);
 	}
 
-	public Game(PlayGround playground, Controller... controllers) {
+	public Game(PlayGround playground, GameController... controllers) {
 
 		this(playground, JellyFish.fromController(controllers));
 	}
@@ -31,7 +31,7 @@ public class Game {
 
 	/**
 	 * Create start configuration with given {@link PlayGround} and
-	 * {@link JellyFish}/{@link Controller}
+	 * {@link JellyFish}/{@link GameController}
 	 */
 	public void initialize() {
 
