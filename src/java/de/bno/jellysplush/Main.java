@@ -1,11 +1,11 @@
 package de.bno.jellysplush;
 
+import game.engine.frame.SwingGameFrame;
+import game.engine.image.InternalImage;
+
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import game.engine.frame.SwingGameFrame;
-import game.engine.image.InternalImage;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
