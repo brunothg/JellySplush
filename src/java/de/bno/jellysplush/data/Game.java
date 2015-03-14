@@ -40,8 +40,13 @@ public class Game {
 	}
 
 	private void createStartPositions() {
-		// TODO AcreateStartPositions
 
+		Position[] startPositions = playground
+				.getStartPositions(jellyFishs.length);
+
+		for (int i = 0; i < jellyFishs.length; i++) {
+
+			jellyFishs[i].setPosition(startPositions[i]);
+		}
 	}
-
 }

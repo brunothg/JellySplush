@@ -4,8 +4,7 @@ import java.awt.Color;
 
 public class JellyFish {
 
-	private int x;
-	private int y;
+	private Position pos = new Position();
 
 	private Controller controller;
 	private Color color;
@@ -33,25 +32,30 @@ public class JellyFish {
 	}
 
 	public int getX() {
-		return x;
+		return pos.getX();
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		pos.setX(x);
 	}
 
 	public int getY() {
-		return y;
+		return pos.getY();
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		pos.setY(y);
 	}
 
 	public void setPosition(int x, int y) {
 
 		setX(x);
 		setY(y);
+	}
+
+	public void setPosition(Position p) {
+
+		setPosition(p.getX(), p.getY());
 	}
 
 	public Color getColor() {
