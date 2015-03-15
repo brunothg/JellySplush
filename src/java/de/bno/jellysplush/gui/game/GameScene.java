@@ -61,6 +61,7 @@ public class GameScene implements Scene {
 
 		recalculateSize(width, height);
 		recalculatePositions(elapsedTime);
+		checkForFishCollision();
 
 		paintBoard(g, width, height, elapsedTime);
 		paintJellyFish(g, width, height, elapsedTime);
@@ -77,12 +78,55 @@ public class GameScene implements Scene {
 			JellyFish fish = fishs[i];
 
 			recalculatePosition(fish, elapsedTime, movement);
+
+			int x;
+			int y;
+
+			AnimatedSceneObject ani = jellyAnis[i];
+
+			if (isFreeMovement()) {
+
+				x = (int) Math.round(fish.getX() * ani.getWidth());
+				y = (int) Math.round(fish.getY() * ani.getHeight());
+			} else {
+
+				x = (int) Math.round(fish.getX()) * (ani.getWidth());
+				y = (int) Math.round(fish.getY()) * (ani.getHeight());
+			}
+
+			ani.setTopLeftPosition(new Point(x, y));
+		}
+
+	}
+
+	private void checkForFishCollision() {
+
+		for (int i = 0; i < jellyAnis.length; i++) {
+
+			AnimatedSceneObject fish = jellyAnis[i];
+
+			checkCollisionFor(fish);
+		}
+
+	}
+
+	private void checkCollisionFor(AnimatedSceneObject fish) {
+
+		for (int i = 0; i < jellyAnis.length; i++) {
+
+			AnimatedSceneObject ani = jellyAnis[i];
+			if (fish == ani) {
+				continue;
+			}
+
+			if (ani.collides(fish)) {
+				System.out.println("Collision");
+			}
 		}
 	}
 
 	private void recalculatePosition(JellyFish fish, long elapsedTime,
 			double movement) {
-		// TODO recalculatePosition
 
 		double moveX = 0;
 		double moveY = 0;
@@ -138,27 +182,10 @@ public class GameScene implements Scene {
 	private void paintJellyFish(Graphics2D g, int width, int height,
 			long elapsedTime) {
 
-		JellyFish[] fishs = game.getJellyFishs();
-
 		for (int i = 0; i < jellyAnis.length; i++) {
 
-			JellyFish fish = fishs[i];
 			AnimatedSceneObject ani = jellyAnis[i];
 
-			int x;
-			int y;
-
-			if (isFreeMovement()) {
-
-				x = (int) Math.round(fish.getX() * ani.getWidth());
-				y = (int) Math.round(fish.getY() * ani.getHeight());
-			} else {
-
-				x = (int) Math.round(fish.getX()) * (ani.getWidth());
-				y = (int) Math.round(fish.getY()) * (ani.getHeight());
-			}
-
-			ani.setTopLeftPosition(new Point(x, y));
 			ani.paintOnScene(g, elapsedTime);
 		}
 	}
