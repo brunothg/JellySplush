@@ -17,6 +17,8 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
@@ -44,6 +46,8 @@ public class StartScene implements Scene, KeyListener {
 
 	private ColorPicker cp1 = new ColorPicker(colors[selCol1]);
 	private ColorPicker cp2 = new ColorPicker(colors[selCol2]);
+
+	private ActionListener actionListener;
 
 	@Override
 	public void paintScene(Graphics2D g2d, int width, int height, long elapsed) {
@@ -199,6 +203,14 @@ public class StartScene implements Scene, KeyListener {
 	private void select() {
 
 		System.out.println("Select...");
+
+		ActionListener al = getActionListener();
+
+		if (al != null) {
+
+			al.actionPerformed(new ActionEvent(this,
+					ActionEvent.ACTION_PERFORMED, "start_game"));
+		}
 	}
 
 	@Override
@@ -250,6 +262,25 @@ public class StartScene implements Scene, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 
+	}
+
+	public ActionListener getActionListener() {
+		return actionListener;
+	}
+
+	public void setActionListener(ActionListener actionListener) {
+		this.actionListener = actionListener;
+	}
+
+	public Color getColor(boolean right) {
+
+		if (right) {
+
+			return colors[selCol2];
+		} else {
+
+			return colors[selCol1];
+		}
 	}
 
 }

@@ -10,12 +10,10 @@ import java.awt.event.WindowEvent;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import de.bno.jellysplush.gui.start.StartScene;
-
 public class Main {
 
 	public static final String IMAGE_PATH = "/de/bno/jellysplush/images/";
-	public static final Dimension WINDOW_SIZE = new Dimension(700, 700);
+	public static final Dimension WINDOW_SIZE = new Dimension(22 * 32, 22 * 32);
 
 	private static SwingGameFrame display;
 
@@ -25,12 +23,7 @@ public class Main {
 		setupInternalImage();
 
 		setupWindow();
-		setStartScene();
-	}
-
-	private static void setStartScene() {
-
-		display.setScene(new StartScene());
+		new Controller(display);
 	}
 
 	private static void setupWindow() {

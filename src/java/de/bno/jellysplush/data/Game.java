@@ -39,6 +39,16 @@ public class Game {
 		createStartPositions();
 	}
 
+	public PlayGround getPlayground() {
+
+		return playground;
+	}
+
+	public JellyFish[] getJellyFishs() {
+
+		return jellyFishs;
+	}
+
 	private void createStartPositions() {
 
 		Position[] startPositions = playground
