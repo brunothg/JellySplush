@@ -28,7 +28,7 @@ public class GameScene implements Scene {
 
 	private static final double SPEED = 2.83/* px in sec */;
 
-	private boolean freeMovement = true;
+	private boolean freeMovement = false;
 
 	private GameKeyAdapter keys = new GameKeyAdapter();
 

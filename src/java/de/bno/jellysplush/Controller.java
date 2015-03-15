@@ -47,6 +47,7 @@ public class Controller {
 				c1.toString(), c2.toString()));
 
 		final GameScene gameScene = new GameScene(c1, c2);
+		gameScene.setFreeMovement(true);
 
 		display.setScene(gameScene);
 	}
