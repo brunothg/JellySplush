@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.gui.game.GameListener;
 import de.bno.jellysplush.gui.game.GameScene;
 import de.bno.jellysplush.gui.start.StartScene;
@@ -55,8 +56,7 @@ public class Controller implements GameListener {
 	}
 
 	@Override
-	public void gameOver(int pointsLeft, int pointsRight, int lifesLeft,
-			int lifesRight) {
+	public void gameOver(JellyFish... fishs) {
 		// TODO gameOver
 
 	}

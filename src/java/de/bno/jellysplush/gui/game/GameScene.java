@@ -28,6 +28,9 @@ import de.bno.jellysplush.gui.KeyboardController;
 
 public class GameScene implements Scene {
 
+	private static final int MAX_POINTS_DEFAULT = 30;
+	private static final int MAX_LIFES_DEFAULT = 4;
+
 	private static final Color BACKGROUND_COLOR = new Color(222, 222, 222);
 
 	private static final double SPEED = 2.83/* px in sec */;
@@ -52,7 +55,6 @@ public class GameScene implements Scene {
 
 	@Override
 	public void paintScene(Graphics2D g, int width, int height, long elapsedTime) {
-		// TODO paint GameScene
 
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
@@ -71,6 +73,65 @@ public class GameScene implements Scene {
 
 		paintBoard(g, width, height, elapsedTime);
 		paintJellyFish(g, width, height, elapsedTime);
+		paintStatus(g, width, height);
+
+		checkPoints();
+		checkLifes();
+	}
+
+	private void checkLifes() {
+
+		int maxLifes = (getGameListener() == null) ? MAX_LIFES_DEFAULT
+				: getGameListener().getMaxPoints();
+
+		JellyFish[] fishs = game.getJellyFishs();
+
+		for (int i = 0; i < fishs.length; i++) {
+
+			JellyFish fish = fishs[i];
+
+			if (-fish.getLifes() >= maxLifes) {
+
+				gameOver();
+				break;
+			}
+		}
+	}
+
+	private void checkPoints() {
+
+		int maxPoints = (getGameListener() == null) ? MAX_POINTS_DEFAULT
+				: getGameListener().getMaxPoints();
+
+		JellyFish[] fishs = game.getJellyFishs();
+
+		for (int i = 0; i < fishs.length; i++) {
+
+			JellyFish fish = fishs[i];
+
+			if (fish.getPoints() >= maxPoints) {
+
+				gameOver();
+				break;
+			}
+		}
+	}
+
+	private void paintStatus(Graphics2D g, int width, int height) {
+		// TODO paintStatus
+
+	}
+
+	private void gameOver() {
+
+		System.out.println("Game Over");
+
+		if (getGameListener() == null) {
+
+			System.exit(-1);
+		}
+
+		getGameListener().gameOver(game.getJellyFishs());
 	}
 
 	private void checkForItemCollision() {
