@@ -52,6 +52,11 @@ public class Main {
 		});
 
 		display.setVisible(true);
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e1) {
+		}
 	}
 
 	private static void setupInternalImage() {

@@ -100,7 +100,7 @@ public class GameScene implements Scene {
 
 			if (-fish.getLifes() >= maxLifes) {
 
-				gameOver();
+				gameOver(i != 1);
 				break;
 			}
 		}
@@ -123,7 +123,7 @@ public class GameScene implements Scene {
 
 			if (fish.getPoints() >= maxPoints) {
 
-				gameOver();
+				gameOver(i == 1);
 				break;
 			}
 		}
@@ -161,7 +161,7 @@ public class GameScene implements Scene {
 		status.paintOnScene(g, 0);
 	}
 
-	private void gameOver() {
+	private void gameOver(boolean rightIsWiner) {
 
 		isGameOver = true;
 		System.out.println("Game Over");
@@ -173,7 +173,7 @@ public class GameScene implements Scene {
 
 		JellyFish[] fishs = game.getJellyFishs();
 
-		getGameListener().gameOver(fishs[0], fishs[1]);
+		getGameListener().gameOver(fishs[0], fishs[1], rightIsWiner);
 	}
 
 	private void checkForItemCollision() {

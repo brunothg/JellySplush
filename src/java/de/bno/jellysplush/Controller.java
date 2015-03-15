@@ -57,11 +57,11 @@ public class Controller implements GameListener {
 	}
 
 	@Override
-	public void gameOver(JellyFish fish1, JellyFish fish2) {
+	public void gameOver(JellyFish fish1, JellyFish fish2, boolean rightIsWiner) {
 
 		System.out.println("-> Game Over Screen");
 
-		final EndScene endScene = new EndScene(fish1, fish2);
+		final EndScene endScene = new EndScene(fish1, fish2, rightIsWiner);
 		endScene.setActionListener(new ActionListener() {
 
 			@Override
