@@ -1,5 +1,8 @@
 package de.bno.jellysplush.data;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class PlayGround {
 
 	public static final int BORDER_WIDTH = 1;
@@ -58,6 +61,23 @@ public class PlayGround {
 		}
 
 		field[height / 2][width / 2] = Field.JELLY;
+	}
+
+	public Position[] getEmptyFields() {
+
+		List<Position> pos = new LinkedList<Position>();
+
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+
+				if (getField(x, y) == Field.EMPTY) {
+
+					pos.add(new Position(x, y));
+				}
+			}
+		}
+
+		return pos.toArray(new Position[pos.size()]);
 	}
 
 	public Field getField(int x, int y) {

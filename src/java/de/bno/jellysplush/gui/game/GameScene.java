@@ -21,6 +21,7 @@ import de.bno.jellysplush.data.Field;
 import de.bno.jellysplush.data.Game;
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.PlayGround;
+import de.bno.jellysplush.data.Position;
 import de.bno.jellysplush.gui.KeyboardController;
 
 public class GameScene implements Scene {
@@ -76,6 +77,7 @@ public class GameScene implements Scene {
 		JellyFish[] fishs = game.getJellyFishs();
 
 		int jellyCount = 0;
+		int nailCount = 0;
 
 		for (int i = 0; i < jellyAnis.length; i++) {
 
@@ -87,6 +89,9 @@ public class GameScene implements Scene {
 			switch (pg.getField(posX, posY)) {
 			case NAIL:
 				fish.setLifes(fish.getLifes() - 1);
+				pg.setField(posX, posY, Field.EMPTY);
+				nailCount++;
+				System.out.println("Nail!!!");
 				break;
 			case JELLY:
 				fish.setPoints(fish.getPoints() + 1);
@@ -99,7 +104,7 @@ public class GameScene implements Scene {
 			}
 		}
 
-		updateJellyAndNails(jellyCount);
+		updateJellyAndNails(jellyCount, nailCount);
 	}
 
 	private boolean anyPlayerOverItem(int x, int y) {
@@ -121,55 +126,38 @@ public class GameScene implements Scene {
 		return false;
 	}
 
-	private void updateJellyAndNails(int jellyCount) {
+	private void updateJellyAndNails(int jellyCount, int nailCount) {
 
 		for (int i = 0; i < jellyCount; i++) {
 
 			generateNewJelly();
 			generateNewNail();
 		}
+
+		for (int i = 0; i < nailCount; i++) {
+
+			generateNewJelly();
+		}
 	}
 
 	private void generateNewNail() {
 
-		PlayGround pg = game.getPlayground();
-
-		while (true) {
-
-			int x = PlayGround.BORDER_WIDTH
-					+ (int) Math
-							.round((Math.random() * (pg.getWidth() - 1 - 2 * PlayGround.BORDER_WIDTH)));
-			int y = PlayGround.BORDER_WIDTH
-					+ (int) Math
-							.round((Math.random() * (pg.getHeight() - 1 - 2 * PlayGround.BORDER_WIDTH)));
-
-			if (pg.getField(x, y) == Field.EMPTY && !anyPlayerOverItem(x, y)) {
-
-				pg.setField(x, y, Field.NAIL);
-				break;
-			}
-		}
+		generateNewField(Field.NAIL);
 	}
 
 	private void generateNewJelly() {
 
+		generateNewField(Field.JELLY);
+	}
+
+	private void generateNewField(Field type) {
+
 		PlayGround pg = game.getPlayground();
 
-		while (true) {
+		Position[] emptyFields = pg.getEmptyFields();
+		Position field = emptyFields[(int) (Math.random() * (emptyFields.length - 1))];
 
-			int x = PlayGround.BORDER_WIDTH
-					+ (int) Math
-							.round((Math.random() * (pg.getWidth() - 1 - 2 * PlayGround.BORDER_WIDTH)));
-			int y = PlayGround.BORDER_WIDTH
-					+ (int) Math
-							.round((Math.random() * (pg.getHeight() - 1 - 2 * PlayGround.BORDER_WIDTH)));
-
-			if (pg.getField(x, y) == Field.EMPTY && !anyPlayerOverItem(x, y)) {
-
-				pg.setField(x, y, Field.JELLY);
-				break;
-			}
-		}
+		pg.setField((int) field.getX(), (int) field.getY(), type);
 	}
 
 	private void recalculatePositions(long elapsedTime) {
