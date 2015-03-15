@@ -17,6 +17,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.EventListener;
 
+import de.bno.jellysplush.data.Field;
 import de.bno.jellysplush.data.Game;
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.PlayGround;
@@ -103,6 +104,34 @@ public class GameScene implements Scene {
 
 		fish.setX(fish.getX() + moveX);
 		fish.setY(fish.getY() + moveY);
+
+		PlayGround pg = game.getPlayground();
+
+		double x = fish.getX();
+		double y = fish.getY();
+
+		if (x <= PlayGround.BORDER_WIDTH || y <= PlayGround.BORDER_WIDTH
+				|| x >= pg.getWidth() - PlayGround.BORDER_WIDTH - 1
+				|| y >= pg.getHeight() - PlayGround.BORDER_WIDTH - 1) {
+
+			wallCollision(fish);
+		}
+	}
+
+	private void wallCollision(JellyFish fish) {
+
+		PlayGround pg = game.getPlayground();
+
+		double x = fish.getX();
+		double y = fish.getY();
+
+		x = Math.max(PlayGround.BORDER_WIDTH, x);
+		x = Math.min(x, pg.getWidth() - PlayGround.BORDER_WIDTH - 1);
+
+		y = Math.max(PlayGround.BORDER_WIDTH, y);
+		y = Math.min(y, pg.getHeight() - PlayGround.BORDER_WIDTH - 1);
+
+		fish.setPosition(x, y);
 	}
 
 	private void paintJellyFish(Graphics2D g, int width, int height,
