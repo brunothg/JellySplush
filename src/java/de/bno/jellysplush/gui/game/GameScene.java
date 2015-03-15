@@ -24,8 +24,7 @@ import de.bno.jellysplush.gui.KeyboardController;
 
 public class GameScene implements Scene {
 
-	private static final Color BACKGROUND_COLOR = new Color(212, 212, 212)
-			.brighter();
+	private static final Color BACKGROUND_COLOR = new Color(222, 222, 222);
 
 	private static final double SPEED = 2.83/* px in sec */;
 
