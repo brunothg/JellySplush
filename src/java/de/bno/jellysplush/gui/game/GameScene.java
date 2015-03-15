@@ -110,7 +110,9 @@ public class GameScene implements Scene {
 
 	}
 
-	private void checkCollisionFor(AnimatedSceneObject fish) {
+	private boolean checkCollisionFor(AnimatedSceneObject fish) {
+
+		boolean anyCollision = false;
 
 		for (int i = 0; i < jellyAnis.length; i++) {
 
@@ -120,9 +122,13 @@ public class GameScene implements Scene {
 			}
 
 			if (ani.collides(fish)) {
-				System.out.println("Collision");
+				// TODO Collision handling
+
+				anyCollision = true;
 			}
 		}
+
+		return anyCollision;
 	}
 
 	private void recalculatePosition(JellyFish fish, long elapsedTime,

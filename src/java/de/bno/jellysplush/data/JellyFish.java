@@ -10,6 +10,7 @@ public class JellyFish {
 	private Color color;
 
 	private int lifes;
+	private int points;
 
 	public JellyFish(GameController controller) {
 
@@ -32,6 +33,7 @@ public class JellyFish {
 		this.controller = controller;
 		setPosition(x, y);
 		setLifes(5);
+		setPoints(0);
 	}
 
 	public double getX() {
@@ -109,6 +111,14 @@ public class JellyFish {
 
 	public void setLifes(int lifes) {
 		this.lifes = lifes;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 
 }
