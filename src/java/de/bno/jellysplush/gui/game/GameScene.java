@@ -16,6 +16,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.EventListener;
+import java.util.LinkedList;
+import java.util.List;
 
 import de.bno.jellysplush.data.Field;
 import de.bno.jellysplush.data.Game;
@@ -155,7 +157,19 @@ public class GameScene implements Scene {
 		PlayGround pg = game.getPlayground();
 
 		Position[] emptyFields = pg.getEmptyFields();
-		Position field = emptyFields[(int) (Math.random() * (emptyFields.length - 1))];
+		List<Position> realEmptyFields = new LinkedList<Position>();
+
+		for (int i = 0; i < emptyFields.length; i++) {
+
+			Position pos = emptyFields[i];
+			if (!anyPlayerOverItem((int) pos.getX(), (int) pos.getY())) {
+
+				realEmptyFields.add(pos);
+			}
+		}
+
+		Position field = realEmptyFields
+				.get((int) (Math.random() * (realEmptyFields.size() - 1)));
 
 		pg.setField((int) field.getX(), (int) field.getY(), type);
 	}
@@ -171,9 +185,6 @@ public class GameScene implements Scene {
 			JellyFish fish = fishs[i];
 
 			recalculatePosition(fish, elapsedTime, movement);
-
-			int x;
-			int y;
 
 			AnimatedSceneObject ani = jellyAnis[i];
 
