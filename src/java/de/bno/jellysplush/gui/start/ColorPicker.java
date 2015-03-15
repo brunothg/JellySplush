@@ -1,10 +1,10 @@
 package de.bno.jellysplush.gui.start;
 
+import game.engine.stage.scene.object.SceneObject;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-
-import game.engine.stage.scene.object.SceneObject;
 
 public class ColorPicker extends SceneObject {
 

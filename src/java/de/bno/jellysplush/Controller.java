@@ -1,12 +1,13 @@
 package de.bno.jellysplush;
 
+import game.engine.frame.SwingGameFrame;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import de.bno.jellysplush.gui.game.GameScene;
 import de.bno.jellysplush.gui.start.StartScene;
-import game.engine.frame.SwingGameFrame;
 
 public class Controller {
 

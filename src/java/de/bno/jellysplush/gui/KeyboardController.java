@@ -1,8 +1,9 @@
 package de.bno.jellysplush.gui;
 
+import game.engine.control.GameKeyAdapter;
+
 import java.awt.event.KeyEvent;
 
-import game.engine.control.GameKeyAdapter;
 import de.bno.jellysplush.data.GameController;
 
 public class KeyboardController extends GameController {

@@ -17,7 +17,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.EventListener;
 
-import de.bno.jellysplush.data.Field;
 import de.bno.jellysplush.data.Game;
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.PlayGround;
@@ -28,6 +27,8 @@ public class GameScene implements Scene {
 	private static final Color BACKGROUND_COLOR = new Color(222, 222, 222);
 
 	private static final double SPEED = 2.83/* px in sec */;
+
+	private boolean freeMovement = true;
 
 	private GameKeyAdapter keys = new GameKeyAdapter();
 
@@ -144,8 +145,18 @@ public class GameScene implements Scene {
 			JellyFish fish = fishs[i];
 			AnimatedSceneObject ani = jellyAnis[i];
 
-			int x = (int) Math.round(fish.getX() * ani.getWidth());
-			int y = (int) Math.round(fish.getY() * ani.getHeight());
+			int x;
+			int y;
+
+			if (isFreeMovement()) {
+
+				x = (int) Math.round(fish.getX() * ani.getWidth());
+				y = (int) Math.round(fish.getY() * ani.getHeight());
+			} else {
+
+				x = (int) Math.round(fish.getX()) * (ani.getWidth());
+				y = (int) Math.round(fish.getY()) * (ani.getHeight());
+			}
 
 			ani.setTopLeftPosition(new Point(x, y));
 			ani.paintOnScene(g, elapsedTime);
@@ -242,5 +253,13 @@ public class GameScene implements Scene {
 				new DefaultSprite(ImageUtils.BufferedImage(InternalImage
 						.load("FigureSprite.png")), 32, 32), c2),
 				TimeUtils.NanosecondsOfMilliseconds(100));
+	}
+
+	public boolean isFreeMovement() {
+		return freeMovement;
+	}
+
+	public void setFreeMovement(boolean freeMovement) {
+		this.freeMovement = freeMovement;
 	}
 }
