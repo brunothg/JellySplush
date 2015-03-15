@@ -84,35 +84,44 @@ public class GameScene implements Scene {
 
 			AnimatedSceneObject ani = jellyAnis[i];
 
-			if (isFreeMovement()) {
-
-				x = (int) Math.round(fish.getX() * ani.getWidth());
-				y = (int) Math.round(fish.getY() * ani.getHeight());
-			} else {
-
-				x = (int) Math.round(fish.getX()) * (ani.getWidth());
-				y = (int) Math.round(fish.getY()) * (ani.getHeight());
-			}
-
-			ani.setTopLeftPosition(new Point(x, y));
+			syncPos(fish, ani);
 		}
 
+	}
+
+	private void syncPos(JellyFish fish, AnimatedSceneObject ani) {
+
+		int x;
+		int y;
+
+		if (isFreeMovement()) {
+
+			x = (int) Math.round(fish.getX() * ani.getWidth());
+			y = (int) Math.round(fish.getY() * ani.getHeight());
+		} else {
+
+			x = (int) Math.round(fish.getX()) * (ani.getWidth());
+			y = (int) Math.round(fish.getY()) * (ani.getHeight());
+		}
+
+		ani.setTopLeftPosition(new Point(x, y));
 	}
 
 	private void checkForFishCollision() {
 
 		for (int i = 0; i < jellyAnis.length; i++) {
 
-			AnimatedSceneObject fish = jellyAnis[i];
-
-			checkCollisionFor(fish);
+			do {
+			} while (checkCollisionFor(i));
 		}
 
 	}
 
-	private boolean checkCollisionFor(AnimatedSceneObject fish) {
+	private boolean checkCollisionFor(int col) {
 
 		boolean anyCollision = false;
+
+		AnimatedSceneObject fish = jellyAnis[col];
 
 		for (int i = 0; i < jellyAnis.length; i++) {
 
@@ -122,13 +131,80 @@ public class GameScene implements Scene {
 			}
 
 			if (ani.collides(fish)) {
-				// TODO Collision handling
+
+				handleCollision(col, i);
 
 				anyCollision = true;
 			}
 		}
 
 		return anyCollision;
+	}
+
+	private void handleCollision(int col1, int col2) {
+		// TODO handleCollision
+
+		AnimatedSceneObject ani1 = jellyAnis[col1];
+		AnimatedSceneObject ani2 = jellyAnis[col2];
+
+		JellyFish fish1 = game.getJellyFishs()[col1];
+		JellyFish fish2 = game.getJellyFishs()[col2];
+
+		double px_X1 = 1.0 / ani1.getWidth();
+		double px_Y1 = 1.0 / ani1.getHeight();
+
+		double px_X2 = 1.0 / ani2.getWidth();
+		double px_Y2 = 1.0 / ani2.getHeight();
+
+		do {
+
+			double x = fish1.getX();
+			double y = fish1.getY();
+			{
+				if (fish1.isMovingLeft()) {
+					x += px_X1;
+				}
+
+				if (fish1.isMovingRight()) {
+					x -= px_X1;
+				}
+
+				if (fish1.isMovingUp()) {
+					y += px_Y1;
+				}
+
+				if (fish1.isMovingDown()) {
+					y -= px_Y1;
+				}
+
+				fish1.setPosition(x, y);
+			}
+
+			x = fish2.getX();
+			y = fish2.getY();
+			{
+				if (fish2.isMovingLeft()) {
+					x += px_X2;
+				}
+
+				if (fish2.isMovingRight()) {
+					x -= px_X2;
+				}
+
+				if (fish2.isMovingUp()) {
+					y += px_Y2;
+				}
+
+				if (fish2.isMovingDown()) {
+					y -= px_Y2;
+				}
+
+				fish2.setPosition(x, y);
+			}
+
+			syncPos(fish1, ani1);
+			syncPos(fish2, ani2);
+		} while (ani1.collides(ani2));
 	}
 
 	private void recalculatePosition(JellyFish fish, long elapsedTime,
