@@ -9,6 +9,8 @@ public class JellyFish {
 	private GameController controller;
 	private Color color;
 
+	private int lifes;
+
 	public JellyFish(GameController controller) {
 
 		this(controller, new Color((int) Math.random() * 255,
@@ -29,6 +31,7 @@ public class JellyFish {
 		this.color = c;
 		this.controller = controller;
 		setPosition(x, y);
+		setLifes(5);
 	}
 
 	public double getX() {
@@ -98,6 +101,14 @@ public class JellyFish {
 		}
 
 		return fishes;
+	}
+
+	public int getLifes() {
+		return lifes;
+	}
+
+	public void setLifes(int lifes) {
+		this.lifes = lifes;
 	}
 
 }
