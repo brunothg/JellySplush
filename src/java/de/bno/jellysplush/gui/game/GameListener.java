@@ -10,5 +10,5 @@ public interface GameListener extends EventListener {
 
 	public int getMaxLifes();
 
-	public void gameOver(JellyFish... jellyFish);
+	public void gameOver(JellyFish fish1, JellyFish fish2);
 }

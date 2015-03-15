@@ -56,7 +56,7 @@ public class Controller implements GameListener {
 	}
 
 	@Override
-	public void gameOver(JellyFish... fishs) {
+	public void gameOver(JellyFish fish1, JellyFish fish2) {
 		// TODO gameOver
 
 	}

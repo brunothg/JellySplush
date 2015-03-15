@@ -47,6 +47,10 @@ public class GameScene implements Scene {
 	private ImageSceneObject jelly;
 	private ImageSceneObject nail;
 
+	private Status status = new Status();
+
+	private boolean isGameOver = false;
+
 	public GameScene(Color c1, Color c2) {
 
 		createGame(c1, c2);
@@ -75,14 +79,18 @@ public class GameScene implements Scene {
 		paintJellyFish(g, width, height, elapsedTime);
 		paintStatus(g, width, height);
 
+		if (isGameOver) {
+
+			return;
+		}
+
 		checkPoints();
 		checkLifes();
 	}
 
 	private void checkLifes() {
 
-		int maxLifes = (getGameListener() == null) ? MAX_LIFES_DEFAULT
-				: getGameListener().getMaxPoints();
+		int maxLifes = getMaxLifes();
 
 		JellyFish[] fishs = game.getJellyFishs();
 
@@ -98,10 +106,14 @@ public class GameScene implements Scene {
 		}
 	}
 
+	private int getMaxLifes() {
+		return (getGameListener() == null) ? MAX_LIFES_DEFAULT
+				: getGameListener().getMaxLifes();
+	}
+
 	private void checkPoints() {
 
-		int maxPoints = (getGameListener() == null) ? MAX_POINTS_DEFAULT
-				: getGameListener().getMaxPoints();
+		int maxPoints = getMaxPoints();
 
 		JellyFish[] fishs = game.getJellyFishs();
 
@@ -117,13 +129,41 @@ public class GameScene implements Scene {
 		}
 	}
 
-	private void paintStatus(Graphics2D g, int width, int height) {
-		// TODO paintStatus
+	private int getMaxPoints() {
+		return (getGameListener() == null) ? MAX_POINTS_DEFAULT
+				: getGameListener().getMaxPoints();
+	}
 
+	private void paintStatus(Graphics2D g, int width, int height) {
+
+		JellyFish[] fishs = game.getJellyFishs();
+
+		int _width = width / 2;
+		int _height = (height / game.getPlayground().getHeight())
+				* PlayGround.BORDER_WIDTH;
+
+		int _y = 0;
+
+		int _x1 = 0;
+		int _x2 = width - _width;
+
+		status.setSize(_width, _height);
+		status.setTextPosition(Status.MIDDLE);
+
+		status.setLifes(getMaxLifes() + fishs[0].getLifes());
+		status.setPoints(fishs[0].getPoints());
+		status.setPosition(_x1, _y);
+		status.paintOnScene(g, 0);
+
+		status.setLifes(getMaxLifes() + fishs[1].getLifes());
+		status.setPoints(fishs[1].getPoints());
+		status.setPosition(_x2, _y);
+		status.paintOnScene(g, 0);
 	}
 
 	private void gameOver() {
 
+		isGameOver = true;
 		System.out.println("Game Over");
 
 		if (getGameListener() == null) {
@@ -131,7 +171,9 @@ public class GameScene implements Scene {
 			System.exit(-1);
 		}
 
-		getGameListener().gameOver(game.getJellyFishs());
+		JellyFish[] fishs = game.getJellyFishs();
+
+		getGameListener().gameOver(fishs[0], fishs[1]);
 	}
 
 	private void checkForItemCollision() {

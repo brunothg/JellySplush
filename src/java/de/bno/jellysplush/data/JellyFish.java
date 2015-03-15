@@ -32,7 +32,7 @@ public class JellyFish {
 		this.color = c;
 		this.controller = controller;
 		setPosition(x, y);
-		setLifes(5);
+		setLifes(0);
 		setPoints(0);
 	}
 
