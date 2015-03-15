@@ -6,10 +6,11 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import de.bno.jellysplush.gui.game.GameListener;
 import de.bno.jellysplush.gui.game.GameScene;
 import de.bno.jellysplush.gui.start.StartScene;
 
-public class Controller {
+public class Controller implements GameListener {
 
 	private SwingGameFrame display;
 
@@ -48,7 +49,27 @@ public class Controller {
 
 		final GameScene gameScene = new GameScene(c1, c2);
 		gameScene.setFreeMovement(true);
+		gameScene.setGameListener(this);
 
 		display.setScene(gameScene);
+	}
+
+	@Override
+	public void gameOver(int pointsLeft, int pointsRight, int lifesLeft,
+			int lifesRight) {
+		// TODO gameOver
+
+	}
+
+	@Override
+	public int getMaxPoints() {
+
+		return 30;
+	}
+
+	@Override
+	public int getMaxLifes() {
+
+		return 4;
 	}
 }

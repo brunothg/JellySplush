@@ -65,6 +65,11 @@ public class PlayGround {
 		return field[y][x];
 	}
 
+	public void setField(int x, int y, Field f) {
+
+		field[y][x] = f;
+	}
+
 	public boolean isAccessible(int x, int y) {
 
 		return field[y][x] != Field.BOX;
