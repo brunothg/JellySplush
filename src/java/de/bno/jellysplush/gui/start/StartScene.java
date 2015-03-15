@@ -38,8 +38,8 @@ public class StartScene implements Scene, KeyListener {
 
 	private static final int BACKGROUND_HEIGHT = 20;
 
-	private static final Color[] colors = new Color[] { Color.RED, Color.BLUE,
-			Color.GREEN, Color.ORANGE, Color.PINK };
+	private static final Color[] colors = new Color[] { Color.RED, Color.GREEN,
+			Color.BLUE, Color.ORANGE, new Color(148, 0, 211) };
 
 	private int selCol1 = 0;
 	private int selCol2 = 1;
