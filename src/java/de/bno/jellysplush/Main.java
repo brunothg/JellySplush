@@ -15,7 +15,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Main {
 
 	public static final String IMAGE_PATH = "/de/bno/jellysplush/images/";
-	public static final Dimension WINDOW_SIZE = new Dimension(22 * 32, 22 * 32);
+	public static final Dimension WINDOW_SIZE = new Dimension(23 * 32, 23 * 32);
 
 	private static SwingGameFrame display;
 

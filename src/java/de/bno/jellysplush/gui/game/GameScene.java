@@ -27,7 +27,7 @@ public class GameScene implements Scene {
 	private static final Color BACKGROUND_COLOR = new Color(212, 212, 212)
 			.brighter();
 
-	private static final double SPEED = 1/* px in sec */;
+	private static final double SPEED = 2.83/* px in sec */;
 
 	private GameKeyAdapter keys = new GameKeyAdapter();
 
@@ -52,14 +52,59 @@ public class GameScene implements Scene {
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 				RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
+				RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 
 		g.setColor(BACKGROUND_COLOR);
 		g.fillRect(0, 0, width, height);
 
 		recalculateSize(width, height);
+		recalculatePositions(elapsedTime);
 
 		paintBoard(g, width, height, elapsedTime);
 		paintJellyFish(g, width, height, elapsedTime);
+	}
+
+	private void recalculatePositions(long elapsedTime) {
+
+		double movement = TimeUtils.Seconds(elapsedTime) * SPEED;
+
+		JellyFish[] fishs = game.getJellyFishs();
+
+		for (int i = 0; i < fishs.length; i++) {
+
+			JellyFish fish = fishs[i];
+
+			recalculatePosition(fish, elapsedTime, movement);
+		}
+	}
+
+	private void recalculatePosition(JellyFish fish, long elapsedTime,
+			double movement) {
+		// TODO recalculatePosition
+
+		System.out.println(movement);
+		double moveX = 0;
+		double moveY = 0;
+
+		if (fish.isMovingLeft()) {
+			moveX -= movement;
+		}
+
+		if (fish.isMovingRight()) {
+			moveX += movement;
+		}
+
+		if (fish.isMovingUp()) {
+			moveY -= movement;
+		}
+
+		if (fish.isMovingDown()) {
+			moveY += movement;
+		}
+
+		fish.setX(fish.getX() + moveX);
+		fish.setY(fish.getY() + moveY);
 	}
 
 	private void paintJellyFish(Graphics2D g, int width, int height,
@@ -147,7 +192,7 @@ public class GameScene implements Scene {
 		fish[0] = new JellyFish(controller1, c1);
 		fish[1] = new JellyFish(controller2, c2);
 
-		game = new Game(new PlayGround(20, 20), fish);
+		game = new Game(new PlayGround(21, 21), fish);
 	}
 
 	private void createSceneObjects(Color c1, Color c2) {

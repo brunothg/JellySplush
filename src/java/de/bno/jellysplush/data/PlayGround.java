@@ -56,6 +56,8 @@ public class PlayGround {
 				}
 			}
 		}
+
+		field[height / 2][width / 2] = Field.JELLY;
 	}
 
 	public Field getField(int x, int y) {
