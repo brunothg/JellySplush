@@ -4,6 +4,8 @@ import game.engine.frame.SwingGameFrame;
 import game.engine.image.InternalImage;
 
 import java.awt.Dimension;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -35,6 +37,15 @@ public class Main {
 		display.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
+
+				display.setSize(WINDOW_SIZE.width, WINDOW_SIZE.height, true);
+			}
+		});
+
+		display.addComponentListener(new ComponentAdapter() {
+
+			@Override
+			public void componentShown(ComponentEvent e) {
 
 				display.setSize(WINDOW_SIZE.width, WINDOW_SIZE.height, true);
 			}

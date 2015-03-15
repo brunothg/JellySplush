@@ -31,23 +31,23 @@ public class JellyFish {
 		setPosition(x, y);
 	}
 
-	public int getX() {
+	public double getX() {
 		return pos.getX();
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		pos.setX(x);
 	}
 
-	public int getY() {
+	public double getY() {
 		return pos.getY();
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		pos.setY(y);
 	}
 
-	public void setPosition(int x, int y) {
+	public void setPosition(double x, double y) {
 
 		setX(x);
 		setY(y);
@@ -83,7 +83,8 @@ public class JellyFish {
 		return controller.isMovingDown();
 	}
 
-	public static JellyFish[] fromController(final GameController... controllers) {
+	public static JellyFish[] fromController(
+			final GameController... controllers) {
 
 		if (controllers == null) {
 			return null;

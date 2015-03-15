@@ -1,14 +1,5 @@
 package de.bno.jellysplush.gui.game;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.util.EventListener;
-
-import de.bno.jellysplush.data.Game;
-import de.bno.jellysplush.data.JellyFish;
-import de.bno.jellysplush.data.PlayGround;
-import de.bno.jellysplush.gui.KeyboardController;
 import game.engine.control.GameKeyAdapter;
 import game.engine.image.ImageUtils;
 import game.engine.image.InternalImage;
@@ -18,9 +9,25 @@ import game.engine.image.sprite.Sprite;
 import game.engine.stage.scene.Scene;
 import game.engine.stage.scene.object.AnimatedSceneObject;
 import game.engine.stage.scene.object.ImageSceneObject;
+import game.engine.stage.scene.object.Point;
 import game.engine.time.TimeUtils;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.util.EventListener;
+
+import de.bno.jellysplush.data.Game;
+import de.bno.jellysplush.data.JellyFish;
+import de.bno.jellysplush.data.PlayGround;
+import de.bno.jellysplush.gui.KeyboardController;
+
 public class GameScene implements Scene {
+
+	private static final Color BACKGROUND_COLOR = new Color(212, 212, 212)
+			.brighter();
+
+	private static final double SPEED = 1/* px in sec */;
 
 	private GameKeyAdapter keys = new GameKeyAdapter();
 
@@ -46,10 +53,31 @@ public class GameScene implements Scene {
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 				RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
 
-		g.setColor(Color.BLACK);
+		g.setColor(BACKGROUND_COLOR);
 		g.fillRect(0, 0, width, height);
 
+		recalculateSize(width, height);
+
 		paintBoard(g, width, height, elapsedTime);
+		paintJellyFish(g, width, height, elapsedTime);
+	}
+
+	private void paintJellyFish(Graphics2D g, int width, int height,
+			long elapsedTime) {
+
+		JellyFish[] fishs = game.getJellyFishs();
+
+		for (int i = 0; i < jellyAnis.length; i++) {
+
+			JellyFish fish = fishs[i];
+			AnimatedSceneObject ani = jellyAnis[i];
+
+			int x = (int) Math.round(fish.getX() * ani.getWidth());
+			int y = (int) Math.round(fish.getY() * ani.getHeight());
+
+			ani.setTopLeftPosition(new Point(x, y));
+			ani.paintOnScene(g, elapsedTime);
+		}
 	}
 
 	private void paintBoard(Graphics2D g, int width, int height,
@@ -60,30 +88,43 @@ public class GameScene implements Scene {
 		int tWidth = width / playground.getWidth();
 		int tHeight = height / playground.getHeight();
 
-		wall.setSize(tWidth, tHeight);
-		jelly.setSize(tWidth, tHeight);
-		nail.setSize(tWidth, tHeight);
-
 		for (int y = 0; y < playground.getHeight(); y++) {
 			for (int x = 0; x < playground.getWidth(); x++) {
 
 				switch (playground.getField(x, y)) {
 				case BOX:
-					wall.setPosition(x * tWidth, y * tHeight);
+					wall.setTopLeftPosition(new Point(x * tWidth, y * tHeight));
 					wall.paintOnScene(g, elapsedTime);
 					break;
 				case JELLY:
-					jelly.setPosition(x * tWidth, y * tHeight);
+					jelly.setTopLeftPosition(new Point(x * tWidth, y * tHeight));
 					jelly.paintOnScene(g, elapsedTime);
 					break;
 				case NAIL:
-					nail.setPosition(x * tWidth, y * tHeight);
+					nail.setTopLeftPosition(new Point(x * tWidth, y * tHeight));
 					nail.paintOnScene(g, elapsedTime);
 					break;
 				default:
 					break;
 				}
 			}
+		}
+	}
+
+	private void recalculateSize(int width, int height) {
+
+		PlayGround playground = game.getPlayground();
+
+		int tWidth = width / playground.getWidth();
+		int tHeight = height / playground.getHeight();
+
+		wall.setSize(tWidth, tHeight);
+		jelly.setSize(tWidth, tHeight);
+		nail.setSize(tWidth, tHeight);
+
+		for (int i = 0; i < jellyAnis.length; i++) {
+
+			jellyAnis[i].setSize(tWidth, tHeight);
 		}
 	}
 
