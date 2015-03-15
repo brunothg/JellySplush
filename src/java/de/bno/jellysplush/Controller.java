@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import de.bno.jellysplush.data.JellyFish;
+import de.bno.jellysplush.gui.end.EndScene;
 import de.bno.jellysplush.gui.game.GameListener;
 import de.bno.jellysplush.gui.game.GameScene;
 import de.bno.jellysplush.gui.start.StartScene;
@@ -57,8 +58,20 @@ public class Controller implements GameListener {
 
 	@Override
 	public void gameOver(JellyFish fish1, JellyFish fish2) {
-		// TODO gameOver
 
+		System.out.println("-> Game Over Screen");
+
+		final EndScene endScene = new EndScene(fish1, fish2);
+		endScene.setActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				setStartScene();
+			}
+		});
+
+		display.setScene(endScene);
 	}
 
 	@Override
