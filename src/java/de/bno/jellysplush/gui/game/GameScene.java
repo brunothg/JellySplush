@@ -83,7 +83,6 @@ public class GameScene implements Scene {
 			double movement) {
 		// TODO recalculatePosition
 
-		System.out.println(movement);
 		double moveX = 0;
 		double moveY = 0;
 
