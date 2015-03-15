@@ -111,6 +111,33 @@ public class PlayGround {
 							+ ((height - BORDER_WIDTH * 2) * 2) - 4));
 		}
 
+		if (numPositions <= 4) {
+			return getCirclePositions(numPositions);
+		} else {
+			return getBorderPositions(numPositions);
+		}
+	}
+
+	private Position[] getCirclePositions(int numPositions) {
+
+		Position[] circ = new Position[4];
+		circ[0] = new Position(BORDER_WIDTH, BORDER_WIDTH);
+		circ[1] = new Position(width - BORDER_WIDTH - 1, width - BORDER_WIDTH
+				- 1);
+		circ[2] = new Position(width - BORDER_WIDTH - 1, BORDER_WIDTH);
+		circ[3] = new Position(BORDER_WIDTH, height - BORDER_WIDTH - 1);
+
+		Position[] ret = new Position[numPositions];
+		for (int i = 0; i < ret.length && i < circ.length; i++) {
+
+			ret[i] = circ[i];
+		}
+
+		return ret;
+	}
+
+	private Position[] getBorderPositions(int numPositions) {
+
 		Position[] pos = new Position[numPositions];
 
 		int index = 0;

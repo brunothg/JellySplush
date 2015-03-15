@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import de.bno.jellysplush.gui.StartScene;
+import de.bno.jellysplush.gui.start.StartScene;
 
 public class Main {
 
