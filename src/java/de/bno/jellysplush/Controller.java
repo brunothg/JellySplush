@@ -12,42 +12,47 @@ import de.bno.jellysplush.gui.game.GameListener;
 import de.bno.jellysplush.gui.game.GameScene;
 import de.bno.jellysplush.gui.start.StartScene;
 
-public class Controller implements GameListener {
+public class Controller implements GameListener
+{
 
 	private SwingGameFrame display;
 
-	public Controller(SwingGameFrame disp) {
+	public Controller(SwingGameFrame disp)
+	{
 
 		this.display = disp;
 
 		initialize();
 	}
 
-	private void initialize() {
+	private void initialize()
+	{
 
 		setStartScene();
 	}
 
-	private void setStartScene() {
+	private void setStartScene()
+	{
 
 		final StartScene startScene = new StartScene();
-		startScene.setActionListener(new ActionListener() {
+		startScene.setActionListener(new ActionListener()
+		{
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 
-				setGameScene(startScene.getColor(false),
-						startScene.getColor(true));
+				setGameScene(startScene.getColor(false), startScene.getColor(true));
 			}
 		});
 
 		display.setScene(startScene);
 	}
 
-	private void setGameScene(Color c1, Color c2) {
+	private void setGameScene(Color c1, Color c2)
+	{
 
-		System.out.println(String.format("Start game: Left[%s] - Right[%s]",
-				c1.toString(), c2.toString()));
+		System.out.println(String.format("Start game: Left[%s] - Right[%s]", c1.toString(), c2.toString()));
 
 		final GameScene gameScene = new GameScene(c1, c2);
 		gameScene.setFreeMovement(true);
@@ -57,15 +62,18 @@ public class Controller implements GameListener {
 	}
 
 	@Override
-	public void gameOver(JellyFish fish1, JellyFish fish2, boolean rightIsWiner) {
+	public void gameOver(JellyFish fish1, JellyFish fish2, boolean rightIsWiner)
+	{
 
 		System.out.println("-> Game Over Screen");
 
 		final EndScene endScene = new EndScene(fish1, fish2, rightIsWiner);
-		endScene.setActionListener(new ActionListener() {
+		endScene.setActionListener(new ActionListener()
+		{
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 
 				setStartScene();
 			}
@@ -75,13 +83,15 @@ public class Controller implements GameListener {
 	}
 
 	@Override
-	public int getMaxPoints() {
+	public int getMaxPoints()
+	{
 
 		return 30;
 	}
 
 	@Override
-	public int getMaxLifes() {
+	public int getMaxLifes()
+	{
 
 		return 4;
 	}
