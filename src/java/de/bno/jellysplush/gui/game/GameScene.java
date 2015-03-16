@@ -259,7 +259,7 @@ public class GameScene implements Scene
 		for (int i = 0; i < nailCount; i++)
 		{
 
-			generateNewJelly();
+			generateNewNail();
 		}
 	}
 
