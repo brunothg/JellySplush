@@ -411,25 +411,25 @@ public class GameScene implements Scene
 				double pX = 0;
 				double pY = 0;
 
-				if (fish1.isMovingLeft())
-				{
-					pX = px_X1;
-				}
-
-				if (fish1.isMovingRight())
-				{
-					pX = -px_X1;
-				}
-
-				if (fish1.isMovingUp())
-				{
-					pY = px_Y1;
-				}
-
-				if (fish1.isMovingDown())
-				{
-					pY = -px_Y1;
-				}
+				//				if (fish1.isMovingLeft())
+				//				{
+				//					pX = px_X1;
+				//				}
+				//
+				//				if (fish1.isMovingRight())
+				//				{
+				//					pX = -px_X1;
+				//				}
+				//
+				//				if (fish1.isMovingUp())
+				//				{
+				//					pY = px_Y1;
+				//				}
+				//
+				//				if (fish1.isMovingDown())
+				//				{
+				//					pY = -px_Y1;
+				//				}
 
 				if (pX == 0 && pY == 0)
 				{
@@ -447,25 +447,25 @@ public class GameScene implements Scene
 				double pX = 0;
 				double pY = 0;
 
-				if (fish2.isMovingLeft())
-				{
-					pX = px_X2;
-				}
-
-				if (fish2.isMovingRight())
-				{
-					pX = -px_X2;
-				}
-
-				if (fish2.isMovingUp())
-				{
-					pY = px_Y2;
-				}
-
-				if (fish2.isMovingDown())
-				{
-					pY = -px_Y2;
-				}
+				//				if (fish2.isMovingLeft())
+				//				{
+				//					pX = px_X2;
+				//				}
+				//
+				//				if (fish2.isMovingRight())
+				//				{
+				//					pX = -px_X2;
+				//				}
+				//
+				//				if (fish2.isMovingUp())
+				//				{
+				//					pY = px_Y2;
+				//				}
+				//
+				//				if (fish2.isMovingDown())
+				//				{
+				//					pY = -px_Y2;
+				//				}
 
 				if (pX == 0 && pY == 0)
 				{
