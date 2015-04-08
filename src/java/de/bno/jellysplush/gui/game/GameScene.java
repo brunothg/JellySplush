@@ -32,9 +32,9 @@ public class GameScene implements Scene
 	private static final int MAX_POINTS_DEFAULT = 30;
 	private static final int MAX_LIFES_DEFAULT = 4;
 
-	private static final Color BACKGROUND_COLOR = new Color(222, 222, 222);
+	private static final Color BACKGROUND_COLOR = new Color(0, 0, 0);
 
-	private static final double SPEED = 4/* px in sec */;
+	private static final double SPEED = 5/* px in sec */;
 
 	private boolean freeMovement = false;
 
