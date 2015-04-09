@@ -11,4 +11,6 @@ public class Constants {
 	public static final double MAX_REL_SPEED = 3.0;
 	public static final double MIN_REL_SPEED = 0.1;
 
+	public static final int MAX_POINTS_DEFAULT = 30;
+	public static final int MAX_LIFES_DEFAULT = 4;
 }
