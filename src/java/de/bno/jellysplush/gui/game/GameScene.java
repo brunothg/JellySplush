@@ -613,7 +613,7 @@ public class GameScene implements Scene {
 
 		Sprite objectSprite = new DefaultSprite(
 				ImageUtils.BufferedImage(InternalImage.load("FieldSprite.png")),
-				32, 32);
+				Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
 
 		wall = new ImageSceneObject(objectSprite.getTile(0, 0));
 		nail = new ImageSceneObject(objectSprite.getTile(1, 0));
