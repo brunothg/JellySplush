@@ -151,17 +151,16 @@ public class GameScene implements Scene {
 
 		JellyFish[] fishs = game.getJellyFishs();
 
-		int _width = width / 2;
+		int _width = (int) (width * (2.0 / 5.0));
 		int _height = (height / game.getPlayground().getHeight())
 				* PlayGround.BORDER_WIDTH;
 
 		int _y = 0;
 
-		int _x1 = 0;
-		int _x2 = width - _width;
+		int _x1 = (int) (width * (0.25 / 5.0));
+		int _x2 = width - _width - _x1;
 
 		status.setSize(_width, _height);
-		status.setTextPosition(Status.MIDDLE);
 
 		status.setLifes(getMaxLifes() + fishs[0].getLifes());
 		status.setPoints(fishs[0].getPoints());

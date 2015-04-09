@@ -1,5 +1,9 @@
 package de.bno.jellysplush.gui.game;
 
+import game.engine.image.ImageUtils;
+import game.engine.image.InternalImage;
+import game.engine.image.sprite.DefaultSprite;
+import game.engine.image.sprite.Sprite;
 import game.engine.stage.scene.object.SceneObject;
 
 import java.awt.Color;
@@ -7,20 +11,21 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.font.LineMetrics;
+
+import de.bno.jellysplush.Constants;
 
 public class Status extends SceneObject {
 
-	public static final int LEFT = 0;
-	public static final int RIGHT = 1;
-	public static final int MIDDLE = 2;
-
 	private static final Color TEXT_COLOR = Color.BLACK;
-	private static final Color BACKGROUND_COLOR = new Color(255, 255, 255, 100);
+	private static final Color BACKGROUND_COLOR = new Color(255, 255, 255, 120);
 
 	private int points = 0;
 	private int lifes = 0;
 
-	private int textPosition = LEFT;
+	private Sprite pics = new DefaultSprite(
+			ImageUtils.BufferedImage(InternalImage.load("PointSprite.png")),
+			Constants.TILE_WIDTH, Constants.TILE_HEIGHT);
 
 	@Override
 	protected void paint(Graphics2D g, long elapsedTime) {
@@ -34,59 +39,71 @@ public class Status extends SceneObject {
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-		drawString(g);
+		drawStatus(g);
 	}
 
-	private void drawString(Graphics2D g) {
+	private void drawStatus(Graphics2D g) {
 
-		Font oldFont = g.getFont();
+		double _widthPoints;
+		double _widthLifes;
 
-		g.setFont(new Font(oldFont.getName(), oldFont.getStyle(), getHeight()));
+		_widthPoints = _widthLifes = getWidth() * 0.5;
 
-		String s = String.format("LP: %d JP: %d", lifes, points);
+		double _height = getHeight();
 
-		FontMetrics metrics = g.getFontMetrics();
-		int width = metrics.stringWidth(s);
-		int height = metrics.getMaxAscent() + metrics.getMaxDescent();
+		double _widthIcPoints = Math.min(_widthPoints * 0.3, _height);
+		double _widthTxPoints = _widthPoints - _widthIcPoints;
 
-		while (width > getWidth() || height > getHeight()) {
+		double _widthIcLifes = Math.min(_widthLifes * 0.3, _height);
+		double _widthTxLifes = _widthLifes - _widthIcLifes;
 
-			oldFont = g.getFont();
-			Font newFont = new Font(oldFont.getName(), oldFont.getStyle(),
-					oldFont.getSize() - 1);
-			g.setFont(newFont);
+		drawIc((Graphics2D) g.create(0, 0, (int) _widthIcLifes, (int) _height),
+				(int) _widthIcLifes, (int) _height, 0);
+		drawTx((Graphics2D) g.create((int) _widthIcLifes, 0,
+				(int) _widthTxLifes, (int) _height), (int) _widthTxLifes,
+				(int) _height, String.format("%d", lifes));
 
-			metrics = g.getFontMetrics();
-			width = metrics.stringWidth(s);
-			height = metrics.getAscent() + metrics.getDescent();
-		}
+		drawIc((Graphics2D) g.create((int) (_widthPoints), 0,
+				(int) _widthIcPoints, (int) _height), (int) _widthIcPoints,
+				(int) _height, 1);
+		drawTx((Graphics2D) g.create((int) (_widthPoints)
+				+ (int) (_widthIcPoints), 0, (int) _widthTxPoints,
+				(int) _height), (int) _widthTxPoints, (int) _height,
+				String.format("%d", points));
 
-		double ratio = 1.0 / (metrics.getMaxAscent() / (double) metrics
-				.getMaxDescent());
-		double add = height * ratio;
+	}
 
-		int x = 0;
-		switch (getTextPosition()) {
-		case LEFT:
-			x = 0;
-			break;
-		case RIGHT:
-			x = (int) (getWidth() - width);
-			break;
-		case MIDDLE:
-		default:
-			x = (int) (getWidth() * 0.5 - width * 0.5);
-			break;
-		}
+	private void drawTx(Graphics2D g, int width, int height, String txt) {
 
-		int y = (int) (getHeight() * 0.5 + height * 0.5 - add);
+		Font f = new Font(Font.SANS_SERIF, Font.BOLD, height + 1);
+		FontMetrics metrics = g.getFontMetrics(f);
+		LineMetrics lineMetrics = metrics.getLineMetrics(txt, g);
+
+		float _height;
+		float _width;
+		do {
+
+			f = new Font(Font.SANS_SERIF, Font.BOLD, f.getSize() - 1);
+
+			g.setFont(f);
+			metrics = g.getFontMetrics(f);
+			lineMetrics = metrics.getLineMetrics(txt, g);
+			_height = lineMetrics.getAscent() + lineMetrics.getDescent();
+			_width = metrics.stringWidth(txt);
+		} while (_width > width || _height > height);
 
 		g.setColor(BACKGROUND_COLOR);
-		g.fillRoundRect(x - 2, y - metrics.getMaxAscent() - 2, width + 4,
-				height + (int) (add * 0.5) + 4, 2, 2);
+		g.fillRoundRect(0, 0, width, height, (int) (width * 0.1),
+				(int) (height * 0.1));
 
 		g.setColor(TEXT_COLOR);
-		g.drawString(s, x, y);
+		g.drawString(txt, (float) ((width - _width) * 0.1f),
+				(float) (lineMetrics.getAscent() + (height - (_height)) * 0.5));
+	}
+
+	private void drawIc(Graphics2D g, int width, int height, int index) {
+
+		pics.drawTile(g, index, 0, width, height);
 	}
 
 	public int getPoints() {
@@ -103,14 +120,6 @@ public class Status extends SceneObject {
 
 	public void setLifes(int lifes) {
 		this.lifes = lifes;
-	}
-
-	public int getTextPosition() {
-		return textPosition;
-	}
-
-	public void setTextPosition(int textPosition) {
-		this.textPosition = textPosition;
 	}
 
 }
