@@ -224,4 +224,10 @@ public class PlayGround
 
 		return pos;
 	}
+
+	public Field getField(int x, int y)
+	{
+
+		return field[y][x];
+	}
 }

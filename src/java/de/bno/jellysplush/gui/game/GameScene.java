@@ -23,7 +23,9 @@ import de.bno.jellysplush.data.Game;
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.PlayGround;
 import de.bno.jellysplush.data.Position;
+import de.bno.jellysplush.data.field.Field;
 import de.bno.jellysplush.data.field.FieldType;
+import de.bno.jellysplush.data.powerup.Powerup;
 import de.bno.jellysplush.gui.KeyboardController;
 
 public class GameScene implements Scene
@@ -216,12 +218,52 @@ public class GameScene implements Scene
 					jellyCount++;
 					System.out.println("Jelly!!!");
 				break;
+				case POWERUP:
+					jellyFetchesPowerup(getField(posX, posY), fish);
+				break;
 				default:
 				break;
 			}
 		}
 
 		updateJellyAndNails(jellyCount, nailCount);
+	}
+
+	private void jellyFetchesPowerup(Field field, JellyFish ownFish)
+	{
+		System.out.println("Jelly fetches Powerup");
+
+		if (field instanceof Powerup == false)
+		{
+			return;
+		}
+
+		Powerup powerup = (Powerup) field;
+
+		JellyFish[] jellyFishs = game.getJellyFishs();
+		JellyFish[] otherFishs = new JellyFish[jellyFishs.length - 1];
+
+		int index = 0;
+		for (int i = 0; i < jellyFishs.length; i++)
+		{
+
+			if (jellyFishs[i] != ownFish)
+			{
+
+				otherFishs[index] = jellyFishs[i];
+				index++;
+			}
+		}
+
+		powerup.manipulateOwnJellyFish(ownFish);
+		powerup.manipulateOtherJellyFishs(otherFishs);
+		powerup.manipulatePlayGround(game.getPlayground());
+	}
+
+	private Field getField(int posX, int posY)
+	{
+
+		return game.getPlayground().getField(posX, posY);
 	}
 
 	private boolean anyPlayerOverItem(int x, int y)
@@ -411,26 +453,6 @@ public class GameScene implements Scene
 				double pX = 0;
 				double pY = 0;
 
-				//				if (fish1.isMovingLeft())
-				//				{
-				//					pX = px_X1;
-				//				}
-				//
-				//				if (fish1.isMovingRight())
-				//				{
-				//					pX = -px_X1;
-				//				}
-				//
-				//				if (fish1.isMovingUp())
-				//				{
-				//					pY = px_Y1;
-				//				}
-				//
-				//				if (fish1.isMovingDown())
-				//				{
-				//					pY = -px_Y1;
-				//				}
-
 				if (pX == 0 && pY == 0)
 				{
 
@@ -446,26 +468,6 @@ public class GameScene implements Scene
 			{
 				double pX = 0;
 				double pY = 0;
-
-				//				if (fish2.isMovingLeft())
-				//				{
-				//					pX = px_X2;
-				//				}
-				//
-				//				if (fish2.isMovingRight())
-				//				{
-				//					pX = -px_X2;
-				//				}
-				//
-				//				if (fish2.isMovingUp())
-				//				{
-				//					pY = px_Y2;
-				//				}
-				//
-				//				if (fish2.isMovingDown())
-				//				{
-				//					pY = -px_Y2;
-				//				}
 
 				if (pX == 0 && pY == 0)
 				{
@@ -583,6 +585,9 @@ public class GameScene implements Scene
 					case NAIL:
 						nail.setTopLeftPosition(new Point(x * tWidth, y * tHeight));
 						nail.paintOnScene(g, elapsedTime);
+					break;
+					case POWERUP:
+					//TODO draw powerup
 					break;
 					default:
 					break;
