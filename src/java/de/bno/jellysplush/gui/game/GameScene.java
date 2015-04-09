@@ -78,6 +78,7 @@ public class GameScene implements Scene {
 		g.fillRect(0, 0, width, height);
 
 		recalculateSize(width, height);
+		applyModifications(elapsedTime);
 		recalculatePositions(elapsedTime);
 		checkForFishCollision();
 		checkForItemCollision();
@@ -93,6 +94,11 @@ public class GameScene implements Scene {
 
 		checkPoints();
 		checkLifes();
+	}
+
+	private void applyModifications(long elapsedTime) {
+
+		game.applyModifications(elapsedTime);
 	}
 
 	private void checkLifes() {

@@ -59,4 +59,12 @@ public class Game {
 			jellyFishs[i].setPosition(startPositions[i]);
 		}
 	}
+
+	public void applyModifications(long elapsedTime) {
+
+		for (int i = 0; i < jellyFishs.length; i++) {
+
+			jellyFishs[i].applyModifications(elapsedTime);
+		}
+	}
 }

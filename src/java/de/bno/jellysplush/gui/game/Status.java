@@ -24,7 +24,6 @@ public class Status extends SceneObject {
 
 	@Override
 	protected void paint(Graphics2D g, long elapsedTime) {
-		// TODO paint Status
 
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
