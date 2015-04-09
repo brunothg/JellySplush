@@ -5,7 +5,7 @@ import de.bno.jellysplush.data.PlayGround;
 import de.bno.jellysplush.data.field.Field;
 import de.bno.jellysplush.data.field.FieldType;
 
-public class DefaultPowerup extends Field implements Powerup {
+public abstract class DefaultPowerup extends Field implements Powerup {
 
 	public DefaultPowerup() {
 
@@ -22,6 +22,12 @@ public class DefaultPowerup extends Field implements Powerup {
 
 	@Override
 	public void manipulatePlayGround(PlayGround playground) {
+	}
+
+	@Override
+	public int getId() {
+
+		return getImage();
 	}
 
 }

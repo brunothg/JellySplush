@@ -18,4 +18,5 @@ public class SpeedPowerup extends DefaultPowerup {
 
 		fish.setSpeed(Math.min(fish.getSpeed() + SPEED_PLUS, MAX_SPEED));
 	}
+
 }
