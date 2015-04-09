@@ -202,17 +202,17 @@ public class GameScene implements Scene
 			int posX = (int) Math.round(fish.getX());
 			int posY = (int) Math.round(fish.getY());
 
-			switch (pg.getField(posX, posY))
+			switch (pg.getFieldType(posX, posY))
 			{
 				case NAIL:
 					fish.setLifes(fish.getLifes() - 1);
-					pg.setField(posX, posY, FieldType.EMPTY);
+					pg.setFieldType(posX, posY, FieldType.EMPTY);
 					nailCount++;
 					System.out.println("Nail!!!");
 				break;
 				case JELLY:
 					fish.setPoints(fish.getPoints() + 1);
-					pg.setField(posX, posY, FieldType.EMPTY);
+					pg.setFieldType(posX, posY, FieldType.EMPTY);
 					jellyCount++;
 					System.out.println("Jelly!!!");
 				break;
@@ -296,7 +296,7 @@ public class GameScene implements Scene
 
 		Position field = realEmptyFields.get((int) (Math.random() * (realEmptyFields.size() - 1)));
 
-		pg.setField((int) field.getX(), (int) field.getY(), type);
+		pg.setFieldType((int) field.getX(), (int) field.getY(), type);
 	}
 
 	private void recalculatePositions(long elapsedTime)
@@ -570,7 +570,7 @@ public class GameScene implements Scene
 			for (int x = 0; x < playground.getWidth(); x++)
 			{
 
-				switch (playground.getField(x, y))
+				switch (playground.getFieldType(x, y))
 				{
 					case BOX:
 						wall.setTopLeftPosition(new Point(x * tWidth, y * tHeight));

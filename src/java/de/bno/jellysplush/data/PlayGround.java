@@ -11,7 +11,7 @@ public class PlayGround
 	private int width;
 	private int height;
 
-	private FieldType[][] field;
+	private Field[][] field;
 
 	/**
 	 * Create a new playground. A border around this field will be created, so that the given width
@@ -39,7 +39,7 @@ public class PlayGround
 	private void createField()
 	{
 
-		field = new FieldType[this.height][this.width];
+		field = new Field[this.height][this.width];
 		clearField();
 	}
 
@@ -54,17 +54,17 @@ public class PlayGround
 				if (y < BORDER_WIDTH || x < BORDER_WIDTH || y >= height - BORDER_WIDTH || x >= width - BORDER_WIDTH)
 				{
 
-					field[y][x] = FieldType.BOX;
+					field[y][x] = new Field(FieldType.BOX);
 				}
 				else
 				{
 
-					field[y][x] = FieldType.EMPTY;
+					field[y][x] = new Field(FieldType.EMPTY);
 				}
 			}
 		}
 
-		field[height / 2][width / 2] = FieldType.JELLY;
+		field[height / 2][width / 2] = new Field(FieldType.JELLY);
 	}
 
 	public Position[] getEmptyFields()
@@ -77,7 +77,7 @@ public class PlayGround
 			for (int x = 0; x < width; x++)
 			{
 
-				if (getField(x, y) == FieldType.EMPTY)
+				if (getFieldType(x, y) == FieldType.EMPTY)
 				{
 
 					pos.add(new Position(x, y));
@@ -88,22 +88,22 @@ public class PlayGround
 		return pos.toArray(new Position[pos.size()]);
 	}
 
-	public FieldType getField(int x, int y)
+	public FieldType getFieldType(int x, int y)
 	{
 
-		return field[y][x];
+		return field[y][x].getFieldType();
 	}
 
-	public void setField(int x, int y, FieldType f)
+	public void setFieldType(int x, int y, FieldType f)
 	{
 
-		field[y][x] = f;
+		field[y][x].setFieldType(f);
 	}
 
 	public boolean isAccessible(int x, int y)
 	{
 
-		return field[y][x] != FieldType.BOX;
+		return field[y][x].getFieldType() != FieldType.BOX;
 	}
 
 	public int getWidth()
@@ -129,7 +129,7 @@ public class PlayGround
 			for (int x = 0; x < width; x++)
 			{
 
-				fieldString += String.format(" %s ", "" + field[y][x].getCharRepresentation());
+				fieldString += String.format(" %s ", "" + field[y][x].getFieldType().getCharRepresentation());
 			}
 
 			if (y < height - 1)
