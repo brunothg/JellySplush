@@ -93,8 +93,8 @@ public class Status extends SceneObject {
 		} while (_width > width || _height > height);
 
 		g.setColor(BACKGROUND_COLOR);
-		g.fillRoundRect(0, 0, width, height, (int) (width * 0.1),
-				(int) (height * 0.1));
+		g.fillRoundRect(0, 0, width, height, (int) (width * 0.2),
+				(int) (height * 0.2));
 
 		g.setColor(TEXT_COLOR);
 		g.drawString(txt, (float) ((width - _width) * 0.1f),
