@@ -24,8 +24,10 @@ import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
 import java.util.EventListener;
 
-public class StartScene implements Scene, KeyListener
-{
+import de.bno.jellysplush.Constants;
+import de.bno.jellysplush.Settings;
+
+public class StartScene implements Scene, KeyListener {
 
 	private static final String TXT = "Choose your colors - Press [Enter] to start";
 	private static final double TXT_LOCATION_X = 0.1;
@@ -39,8 +41,9 @@ public class StartScene implements Scene, KeyListener
 
 	private static final int BACKGROUND_HEIGHT = 20;
 
-	private static final Color[] colors = new Color[] { new Color(0, 153, 255), Color.YELLOW, Color.ORANGE,
-			new Color(148, 0, 211), new Color(204, 0, 204), Color.WHITE };
+	private static final Color[] colors = min(Settings.getColorArray(
+			Settings.KEY_USER_COLORS, Constants.USER_COLORS_DEFAULT), 2,
+			Constants.USER_COLORS_DEFAULT);
 
 	private int selCol1 = 0;
 	private int selCol2 = 1;
@@ -50,11 +53,22 @@ public class StartScene implements Scene, KeyListener
 
 	private ActionListener actionListener;
 
-	@Override
-	public void paintScene(Graphics2D g2d, int width, int height, long elapsed)
-	{
+	private static Color[] min(Color[] colorArray, int min,
+			Color[] userColorsDefault) {
 
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		if (colorArray.length >= min) {
+
+			return colorArray;
+		}
+
+		return userColorsDefault;
+	}
+
+	@Override
+	public void paintScene(Graphics2D g2d, int width, int height, long elapsed) {
+
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
 
 		drawBackground(g2d, width, height);
 		drawText(g2d, width, height);
@@ -66,8 +80,7 @@ public class StartScene implements Scene, KeyListener
 		cp2.paintOnScene(g2d, elapsed);
 	}
 
-	private void drawText(Graphics2D g2d, int width, int height)
-	{
+	private void drawText(Graphics2D g2d, int width, int height) {
 
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 13));
@@ -78,11 +91,11 @@ public class StartScene implements Scene, KeyListener
 		int stringWidth = (int) bounds.getWidth();
 		int stringHeight = (int) bounds.getHeight();
 
-		g2d.drawString(TXT, (int) (width * 0.5 - stringWidth * 0.5), (int) (stringHeight + height * TXT_LOCATION_X));
+		g2d.drawString(TXT, (int) (width * 0.5 - stringWidth * 0.5),
+				(int) (stringHeight + height * TXT_LOCATION_X));
 	}
 
-	private void recalculateLocations(int width, int height)
-	{
+	private void recalculateLocations(int width, int height) {
 
 		double _y1 = height * PICKER_LOCATION_Y - cp1.getHeight() * 0.5;
 		double _y2 = height * PICKER_LOCATION_Y - cp2.getHeight() * 0.5;
@@ -100,8 +113,7 @@ public class StartScene implements Scene, KeyListener
 		cp2.setTopLeftPosition(new Point(x2, y2));
 	}
 
-	private void recalculateSizes(int width, int height)
-	{
+	private void recalculateSizes(int width, int height) {
 
 		double _width = width * PICKER_SIZE;
 		double _height = height * PICKER_SIZE;
@@ -113,20 +125,15 @@ public class StartScene implements Scene, KeyListener
 		cp2.setSize(width, height);
 	}
 
-	private void drawBackground(Graphics2D g2d, int width, int height)
-	{
+	private void drawBackground(Graphics2D g2d, int width, int height) {
 
 		boolean cSwitch = true;
 
-		for (int i = 0; i < height; i += BACKGROUND_HEIGHT)
-		{
+		for (int i = 0; i < height; i += BACKGROUND_HEIGHT) {
 
-			if (cSwitch)
-			{
+			if (cSwitch) {
 				g2d.setColor(BACKGROUND_COLOR_1);
-			}
-			else
-			{
+			} else {
 				g2d.setColor(BACKGROUND_COLOR_2);
 			}
 
@@ -136,60 +143,44 @@ public class StartScene implements Scene, KeyListener
 		}
 	}
 
-	private void setColor(int col, boolean right)
-	{
+	private void setColor(int col, boolean right) {
 
-		if (right)
-		{
+		if (right) {
 
 			selCol2 = col;
-			if (selCol2 >= colors.length)
-			{
+			if (selCol2 >= colors.length) {
 				selCol2 = 0;
-			}
-			else if (selCol2 < 0)
-			{
+			} else if (selCol2 < 0) {
 				selCol2 = colors.length - 1;
 			}
-		}
-		else
-		{
+		} else {
 
 			selCol1 = col;
-			if (selCol1 >= colors.length)
-			{
+			if (selCol1 >= colors.length) {
 				selCol1 = 0;
-			}
-			else if (selCol1 < 0)
-			{
+			} else if (selCol1 < 0) {
 				selCol1 = colors.length - 1;
 			}
 		}
 
 	}
 
-	private void down(boolean right)
-	{
+	private void down(boolean right) {
 
-		if (right)
-		{
+		if (right) {
 
 			setColor(selCol2 + 1, true);
 
-			if (selCol2 == selCol1)
-			{
+			if (selCol2 == selCol1) {
 				setColor(selCol2 + 1, true);
 			}
 
 			cp2.setColor(colors[selCol2]);
-		}
-		else
-		{
+		} else {
 
 			setColor(selCol1 + 1, false);
 
-			if (selCol2 == selCol1)
-			{
+			if (selCol2 == selCol1) {
 				setColor(selCol1 + 1, false);
 			}
 
@@ -199,28 +190,22 @@ public class StartScene implements Scene, KeyListener
 		System.out.println("Down... " + right);
 	}
 
-	private void up(boolean right)
-	{
+	private void up(boolean right) {
 
-		if (right)
-		{
+		if (right) {
 
 			setColor(selCol2 - 1, true);
 
-			if (selCol2 == selCol1)
-			{
+			if (selCol2 == selCol1) {
 				setColor(selCol2 - 1, true);
 			}
 
 			cp2.setColor(colors[selCol2]);
-		}
-		else
-		{
+		} else {
 
 			setColor(selCol1 - 1, false);
 
-			if (selCol2 == selCol1)
-			{
+			if (selCol2 == selCol1) {
 				setColor(selCol1 - 1, false);
 			}
 
@@ -230,96 +215,84 @@ public class StartScene implements Scene, KeyListener
 		System.out.println("Up... " + right);
 	}
 
-	private void select()
-	{
+	private void select() {
 
 		System.out.println("Select...");
 
 		ActionListener al = getActionListener();
 
-		if (al != null)
-		{
+		if (al != null) {
 
-			al.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "start_game"));
+			al.actionPerformed(new ActionEvent(this,
+					ActionEvent.ACTION_PERFORMED, "start_game"));
 		}
 	}
 
 	@Override
-	public EventListener[] getEventListeners()
-	{
+	public EventListener[] getEventListeners() {
 		return new EventListener[] { this };
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e)
-	{
+	public void keyTyped(KeyEvent e) {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e)
-	{
+	public void keyPressed(KeyEvent e) {
 
 		int keyCode = e.getKeyCode();
 
-		switch (keyCode)
-		{
-			case VK_ENTER:
-				select();
+		switch (keyCode) {
+		case VK_ENTER:
+			select();
 			break;
 
-			case VK_UP:
-				up(true);
+		case VK_UP:
+			up(true);
 			break;
-			case VK_DOWN:
-				down(true);
+		case VK_DOWN:
+			down(true);
 			break;
-			case VK_LEFT:
-				up(true);
+		case VK_LEFT:
+			up(true);
 			break;
-			case VK_RIGHT:
-				down(true);
+		case VK_RIGHT:
+			down(true);
 			break;
-			case VK_W:
-				up(false);
+		case VK_W:
+			up(false);
 			break;
-			case VK_S:
-				down(false);
+		case VK_S:
+			down(false);
 			break;
-			case VK_A:
-				up(false);
+		case VK_A:
+			up(false);
 			break;
-			case VK_D:
-				down(false);
+		case VK_D:
+			down(false);
 			break;
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e)
-	{
+	public void keyReleased(KeyEvent e) {
 
 	}
 
-	public ActionListener getActionListener()
-	{
+	public ActionListener getActionListener() {
 		return actionListener;
 	}
 
-	public void setActionListener(ActionListener actionListener)
-	{
+	public void setActionListener(ActionListener actionListener) {
 		this.actionListener = actionListener;
 	}
 
-	public Color getColor(boolean right)
-	{
+	public Color getColor(boolean right) {
 
-		if (right)
-		{
+		if (right) {
 
 			return colors[selCol2];
-		}
-		else
-		{
+		} else {
 
 			return colors[selCol1];
 		}

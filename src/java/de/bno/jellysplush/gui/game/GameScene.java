@@ -35,7 +35,9 @@ public class GameScene implements Scene {
 	private static final int MAX_POINTS_DEFAULT = 30;
 	private static final int MAX_LIFES_DEFAULT = 4;
 
-	private static final Color BACKGROUND_COLOR = new Color(0, 0, 0);
+	private static final Color BACKGROUND_COLOR = Settings.getColor(
+			Settings.KEY_BACKGROUND_COLOR,
+			Constants.PLAYGROUND_BACKGROUND_COLOR_DEFAULT);
 
 	private static final double SPEED = Settings.getDouble(Settings.KEY_SPEED,
 			5)/* px in sec */;

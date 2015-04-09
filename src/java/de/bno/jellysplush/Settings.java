@@ -1,5 +1,6 @@
 package de.bno.jellysplush;
 
+import java.awt.Color;
 import java.io.FileInputStream;
 import java.util.Properties;
 
@@ -10,6 +11,8 @@ public class Settings {
 	public static final String KEY_FREE_MOVEMENT = "enable_free_movement";
 	public static final String KEY_SPEED = "speed";
 	public static final String KEY_USED_POWERUPS = "powerups_used";
+	public static final String KEY_BACKGROUND_COLOR = "background_color";
+	public static final String KEY_USER_COLORS = "user_colors";
 
 	public static final Properties props = new Properties(
 			System.getProperties());
@@ -34,6 +37,54 @@ public class Settings {
 
 			try {
 				return Boolean.valueOf(property);
+			} catch (Exception e) {
+				System.err.println(key + " -> Properties read ex: "
+						+ e.getMessage());
+			}
+		}
+
+		return def;
+	}
+
+	public static Color getColor(String key, Color def) {
+
+		String property = props.getProperty(key).trim();
+
+		if (property == null) {
+
+			return def;
+		} else {
+
+			try {
+				return Color.decode(property);
+			} catch (Exception e) {
+				System.err.println(key + " -> Properties read ex: "
+						+ e.getMessage());
+			}
+		}
+
+		return def;
+	}
+
+	public static Color[] getColorArray(String key, Color[] def) {
+
+		String property = props.getProperty(key);
+
+		if (property == null) {
+
+			return def;
+		} else {
+
+			try {
+				String[] colors = property.split(",");
+				Color[] cols = new Color[colors.length];
+
+				for (int i = 0; i < cols.length; i++) {
+
+					cols[i] = Color.decode(colors[i].trim());
+				}
+
+				return cols;
 			} catch (Exception e) {
 				System.err.println(key + " -> Properties read ex: "
 						+ e.getMessage());
