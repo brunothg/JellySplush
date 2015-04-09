@@ -19,7 +19,7 @@ import java.util.EventListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.bno.jellysplush.data.Field;
+import de.bno.jellysplush.data.FieldType;
 import de.bno.jellysplush.data.Game;
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.PlayGround;
@@ -206,13 +206,13 @@ public class GameScene implements Scene
 			{
 				case NAIL:
 					fish.setLifes(fish.getLifes() - 1);
-					pg.setField(posX, posY, Field.EMPTY);
+					pg.setField(posX, posY, FieldType.EMPTY);
 					nailCount++;
 					System.out.println("Nail!!!");
 				break;
 				case JELLY:
 					fish.setPoints(fish.getPoints() + 1);
-					pg.setField(posX, posY, Field.EMPTY);
+					pg.setField(posX, posY, FieldType.EMPTY);
 					jellyCount++;
 					System.out.println("Jelly!!!");
 				break;
@@ -266,16 +266,16 @@ public class GameScene implements Scene
 	private void generateNewNail()
 	{
 
-		generateNewField(Field.NAIL);
+		generateNewField(FieldType.NAIL);
 	}
 
 	private void generateNewJelly()
 	{
 
-		generateNewField(Field.JELLY);
+		generateNewField(FieldType.JELLY);
 	}
 
-	private void generateNewField(Field type)
+	private void generateNewField(FieldType type)
 	{
 
 		PlayGround pg = game.getPlayground();

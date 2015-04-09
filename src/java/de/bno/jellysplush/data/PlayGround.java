@@ -11,7 +11,7 @@ public class PlayGround
 	private int width;
 	private int height;
 
-	private Field[][] field;
+	private FieldType[][] field;
 
 	/**
 	 * Create a new playground. A border around this field will be created, so that the given width
@@ -39,7 +39,7 @@ public class PlayGround
 	private void createField()
 	{
 
-		field = new Field[this.height][this.width];
+		field = new FieldType[this.height][this.width];
 		clearField();
 	}
 
@@ -54,17 +54,17 @@ public class PlayGround
 				if (y < BORDER_WIDTH || x < BORDER_WIDTH || y >= height - BORDER_WIDTH || x >= width - BORDER_WIDTH)
 				{
 
-					field[y][x] = Field.BOX;
+					field[y][x] = FieldType.BOX;
 				}
 				else
 				{
 
-					field[y][x] = Field.EMPTY;
+					field[y][x] = FieldType.EMPTY;
 				}
 			}
 		}
 
-		field[height / 2][width / 2] = Field.JELLY;
+		field[height / 2][width / 2] = FieldType.JELLY;
 	}
 
 	public Position[] getEmptyFields()
@@ -77,7 +77,7 @@ public class PlayGround
 			for (int x = 0; x < width; x++)
 			{
 
-				if (getField(x, y) == Field.EMPTY)
+				if (getField(x, y) == FieldType.EMPTY)
 				{
 
 					pos.add(new Position(x, y));
@@ -88,13 +88,13 @@ public class PlayGround
 		return pos.toArray(new Position[pos.size()]);
 	}
 
-	public Field getField(int x, int y)
+	public FieldType getField(int x, int y)
 	{
 
 		return field[y][x];
 	}
 
-	public void setField(int x, int y, Field f)
+	public void setField(int x, int y, FieldType f)
 	{
 
 		field[y][x] = f;
@@ -103,7 +103,7 @@ public class PlayGround
 	public boolean isAccessible(int x, int y)
 	{
 
-		return field[y][x] != Field.BOX;
+		return field[y][x] != FieldType.BOX;
 	}
 
 	public int getWidth()
