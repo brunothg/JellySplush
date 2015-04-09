@@ -14,6 +14,7 @@ import game.engine.time.TimeUtils;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.util.EventListener;
 import java.util.LinkedList;
@@ -599,8 +600,18 @@ public class GameScene implements Scene
 
 	private void paintPowerup(Field powerup, Graphics2D g, long elapsedTime, Point point, int tWidth, int tHeight)
 	{
-		// TODO paintPowerup
-
+		String imageString = powerup.getImage();
+		try
+		{
+			Image image = InternalImage.load(imageString);
+			g.drawImage(image, point.getX(), point.getY(), point.getX() + tWidth, point.getY() + tHeight, 0, 0,
+				image.getWidth(null), image.getHeight(null), null);
+		}
+		catch (Exception e)
+		{
+			g.setColor(Color.RED);
+			g.fillRoundRect(point.getX(), point.getY(), tWidth, tHeight, (int) (tWidth * 0.1), (int) (tHeight * 0.1));
+		}
 	}
 
 	private void recalculateSize(int width, int height)
