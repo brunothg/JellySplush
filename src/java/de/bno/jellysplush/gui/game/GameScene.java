@@ -587,13 +587,20 @@ public class GameScene implements Scene
 						nail.paintOnScene(g, elapsedTime);
 					break;
 					case POWERUP:
-					//TODO draw powerup
+						paintPowerup(playground.getField(x, y), g, elapsedTime, new Point(x * tWidth, y * tHeight),
+							tWidth, tHeight);
 					break;
 					default:
 					break;
 				}
 			}
 		}
+	}
+
+	private void paintPowerup(Field powerup, Graphics2D g, long elapsedTime, Point point, int tWidth, int tHeight)
+	{
+		// TODO paintPowerup
+
 	}
 
 	private void recalculateSize(int width, int height)

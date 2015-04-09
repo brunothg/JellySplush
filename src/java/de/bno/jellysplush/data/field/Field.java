@@ -4,6 +4,7 @@ public class Field
 {
 
 	private FieldType fieldType;
+	private String image;
 
 	public Field()
 	{
@@ -25,6 +26,16 @@ public class Field
 	public void setFieldType(FieldType fieldType)
 	{
 		this.fieldType = fieldType;
+	}
+
+	public String getImage()
+	{
+		return image;
+	}
+
+	public void setImage(String image)
+	{
+		this.image = image;
 	}
 
 }
