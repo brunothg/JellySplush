@@ -345,14 +345,14 @@ public class GameScene implements Scene
 	private void recalculatePositions(long elapsedTime)
 	{
 
-		double movement = TimeUtils.Seconds(elapsedTime) * SPEED;
-
 		JellyFish[] fishs = game.getJellyFishs();
 
 		for (int i = 0; i < fishs.length; i++)
 		{
 
 			JellyFish fish = fishs[i];
+
+			double movement = TimeUtils.Seconds(elapsedTime) * (SPEED * fish.getSpeed());
 
 			recalculatePosition(fish, elapsedTime, movement);
 
