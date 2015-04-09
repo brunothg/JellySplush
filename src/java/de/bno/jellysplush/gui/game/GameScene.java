@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import de.bno.jellysplush.Constants;
+import de.bno.jellysplush.Settings;
 import de.bno.jellysplush.data.Game;
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.PlayGround;
@@ -36,7 +37,8 @@ public class GameScene implements Scene {
 
 	private static final Color BACKGROUND_COLOR = new Color(0, 0, 0);
 
-	private static final double SPEED = 5/* px in sec */;
+	private static final double SPEED = Settings.getDouble(Settings.KEY_SPEED,
+			5)/* px in sec */;
 
 	private boolean freeMovement = false;
 
