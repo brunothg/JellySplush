@@ -14,12 +14,12 @@ import game.engine.time.TimeUtils;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.RenderingHints;
 import java.util.EventListener;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.bno.jellysplush.Constants;
 import de.bno.jellysplush.data.Game;
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.PlayGround;
@@ -29,8 +29,7 @@ import de.bno.jellysplush.data.field.FieldType;
 import de.bno.jellysplush.data.powerup.Powerup;
 import de.bno.jellysplush.gui.KeyboardController;
 
-public class GameScene implements Scene
-{
+public class GameScene implements Scene {
 
 	private static final int MAX_POINTS_DEFAULT = 30;
 	private static final int MAX_LIFES_DEFAULT = 4;
@@ -50,25 +49,30 @@ public class GameScene implements Scene
 	private ImageSceneObject wall;
 	private ImageSceneObject jelly;
 	private ImageSceneObject nail;
+	private Sprite powerups;
 
 	private Status status = new Status();
 
 	private boolean isGameOver = false;
 
-	public GameScene(Color c1, Color c2)
-	{
+	public GameScene(Color c1, Color c2) {
 
 		createGame(c1, c2);
 		createSceneObjects(c1, c2);
+		powerups = new DefaultSprite(ImageUtils.BufferedImage(InternalImage
+				.load("PowerupSprite.png")), Constants.TILE_WIDTH,
+				Constants.TILE_HEIGHT);
 	}
 
 	@Override
-	public void paintScene(Graphics2D g, int width, int height, long elapsedTime)
-	{
+	public void paintScene(Graphics2D g, int width, int height, long elapsedTime) {
 
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
-		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+				RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+		g.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
+				RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 
 		g.setColor(BACKGROUND_COLOR);
 		g.fillRect(0, 0, width, height);
@@ -82,8 +86,7 @@ public class GameScene implements Scene
 		paintJellyFish(g, width, height, elapsedTime);
 		paintStatus(g, width, height);
 
-		if (isGameOver)
-		{
+		if (isGameOver) {
 
 			return;
 		}
@@ -92,20 +95,17 @@ public class GameScene implements Scene
 		checkLifes();
 	}
 
-	private void checkLifes()
-	{
+	private void checkLifes() {
 
 		int maxLifes = getMaxLifes();
 
 		JellyFish[] fishs = game.getJellyFishs();
 
-		for (int i = 0; i < fishs.length; i++)
-		{
+		for (int i = 0; i < fishs.length; i++) {
 
 			JellyFish fish = fishs[i];
 
-			if (-fish.getLifes() >= maxLifes)
-			{
+			if (-fish.getLifes() >= maxLifes) {
 
 				gameOver(i != 1);
 				break;
@@ -113,25 +113,22 @@ public class GameScene implements Scene
 		}
 	}
 
-	private int getMaxLifes()
-	{
-		return (getGameListener() == null) ? MAX_LIFES_DEFAULT : getGameListener().getMaxLifes();
+	private int getMaxLifes() {
+		return (getGameListener() == null) ? MAX_LIFES_DEFAULT
+				: getGameListener().getMaxLifes();
 	}
 
-	private void checkPoints()
-	{
+	private void checkPoints() {
 
 		int maxPoints = getMaxPoints();
 
 		JellyFish[] fishs = game.getJellyFishs();
 
-		for (int i = 0; i < fishs.length; i++)
-		{
+		for (int i = 0; i < fishs.length; i++) {
 
 			JellyFish fish = fishs[i];
 
-			if (fish.getPoints() >= maxPoints)
-			{
+			if (fish.getPoints() >= maxPoints) {
 
 				gameOver(i == 1);
 				break;
@@ -139,18 +136,18 @@ public class GameScene implements Scene
 		}
 	}
 
-	private int getMaxPoints()
-	{
-		return (getGameListener() == null) ? MAX_POINTS_DEFAULT : getGameListener().getMaxPoints();
+	private int getMaxPoints() {
+		return (getGameListener() == null) ? MAX_POINTS_DEFAULT
+				: getGameListener().getMaxPoints();
 	}
 
-	private void paintStatus(Graphics2D g, int width, int height)
-	{
+	private void paintStatus(Graphics2D g, int width, int height) {
 
 		JellyFish[] fishs = game.getJellyFishs();
 
 		int _width = width / 2;
-		int _height = (height / game.getPlayground().getHeight()) * PlayGround.BORDER_WIDTH;
+		int _height = (height / game.getPlayground().getHeight())
+				* PlayGround.BORDER_WIDTH;
 
 		int _y = 0;
 
@@ -171,14 +168,12 @@ public class GameScene implements Scene
 		status.paintOnScene(g, 0);
 	}
 
-	private void gameOver(boolean rightIsWiner)
-	{
+	private void gameOver(boolean rightIsWiner) {
 
 		isGameOver = true;
 		System.out.println("Game Over");
 
-		if (getGameListener() == null)
-		{
+		if (getGameListener() == null) {
 
 			System.exit(-1);
 		}
@@ -188,8 +183,7 @@ public class GameScene implements Scene
 		getGameListener().gameOver(fishs[0], fishs[1], rightIsWiner);
 	}
 
-	private void checkForItemCollision()
-	{
+	private void checkForItemCollision() {
 
 		PlayGround pg = game.getPlayground();
 		JellyFish[] fishs = game.getJellyFishs();
@@ -197,35 +191,32 @@ public class GameScene implements Scene
 		int jellyCount = 0;
 		int nailCount = 0;
 
-		for (int i = 0; i < jellyAnis.length; i++)
-		{
+		for (int i = 0; i < jellyAnis.length; i++) {
 
 			JellyFish fish = fishs[i];
 
 			int posX = (int) Math.round(fish.getX());
 			int posY = (int) Math.round(fish.getY());
 
-			switch (pg.getFieldType(posX, posY))
-			{
-				case NAIL:
-					if (!fish.isInvincible())
-					{
-						fish.setLifes(fish.getLifes() - 1);
-					}
-					pg.setFieldType(posX, posY, FieldType.EMPTY);
-					nailCount++;
-					System.out.println("Nail!!!");
+			switch (pg.getFieldType(posX, posY)) {
+			case NAIL:
+				if (!fish.isInvincible()) {
+					fish.setLifes(fish.getLifes() - 1);
+				}
+				pg.setFieldType(posX, posY, FieldType.EMPTY);
+				nailCount++;
+				System.out.println("Nail!!!");
 				break;
-				case JELLY:
-					fish.setPoints(fish.getPoints() + 1);
-					pg.setFieldType(posX, posY, FieldType.EMPTY);
-					jellyCount++;
-					System.out.println("Jelly!!!");
+			case JELLY:
+				fish.setPoints(fish.getPoints() + 1);
+				pg.setFieldType(posX, posY, FieldType.EMPTY);
+				jellyCount++;
+				System.out.println("Jelly!!!");
 				break;
-				case POWERUP:
-					jellyFetchesPowerup(getField(posX, posY), fish);
+			case POWERUP:
+				jellyFetchesPowerup(getField(posX, posY), fish);
 				break;
-				default:
+			default:
 				break;
 			}
 		}
@@ -233,12 +224,10 @@ public class GameScene implements Scene
 		updateJellyAndNails(jellyCount, nailCount);
 	}
 
-	private void jellyFetchesPowerup(Field field, JellyFish ownFish)
-	{
+	private void jellyFetchesPowerup(Field field, JellyFish ownFish) {
 		System.out.println("Powerup!!!");
 
-		if (field instanceof Powerup == false)
-		{
+		if (field instanceof Powerup == false) {
 			return;
 		}
 
@@ -248,11 +237,9 @@ public class GameScene implements Scene
 		JellyFish[] otherFishs = new JellyFish[jellyFishs.length - 1];
 
 		int index = 0;
-		for (int i = 0; i < jellyFishs.length; i++)
-		{
+		for (int i = 0; i < jellyFishs.length; i++) {
 
-			if (jellyFishs[i] != ownFish)
-			{
+			if (jellyFishs[i] != ownFish) {
 
 				otherFishs[index] = jellyFishs[i];
 				index++;
@@ -264,27 +251,23 @@ public class GameScene implements Scene
 		powerup.manipulatePlayGround(game.getPlayground());
 	}
 
-	private Field getField(int posX, int posY)
-	{
+	private Field getField(int posX, int posY) {
 
 		return game.getPlayground().getField(posX, posY);
 	}
 
-	private boolean anyPlayerOverItem(int x, int y)
-	{
+	private boolean anyPlayerOverItem(int x, int y) {
 
 		JellyFish[] fishs = game.getJellyFishs();
 
-		for (int i = 0; i < jellyAnis.length; i++)
-		{
+		for (int i = 0; i < jellyAnis.length; i++) {
 
 			JellyFish fish = fishs[i];
 
 			int posX = (int) Math.round(fish.getX());
 			int posY = (int) Math.round(fish.getY());
 
-			if (posX == x && posY == y)
-			{
+			if (posX == x && posY == y) {
 				return true;
 			}
 		}
@@ -292,70 +275,62 @@ public class GameScene implements Scene
 		return false;
 	}
 
-	private void updateJellyAndNails(int jellyCount, int nailCount)
-	{
+	private void updateJellyAndNails(int jellyCount, int nailCount) {
 
-		for (int i = 0; i < jellyCount; i++)
-		{
+		for (int i = 0; i < jellyCount; i++) {
 
 			generateNewJelly();
 			generateNewNail();
 		}
 
-		for (int i = 0; i < nailCount; i++)
-		{
+		for (int i = 0; i < nailCount; i++) {
 
 			generateNewNail();
 		}
 	}
 
-	private void generateNewNail()
-	{
+	private void generateNewNail() {
 
 		generateNewField(FieldType.NAIL);
 	}
 
-	private void generateNewJelly()
-	{
+	private void generateNewJelly() {
 
 		generateNewField(FieldType.JELLY);
 	}
 
-	private void generateNewField(FieldType type)
-	{
+	private void generateNewField(FieldType type) {
 
 		PlayGround pg = game.getPlayground();
 
 		Position[] emptyFields = pg.getEmptyFields();
 		List<Position> realEmptyFields = new LinkedList<Position>();
 
-		for (int i = 0; i < emptyFields.length; i++)
-		{
+		for (int i = 0; i < emptyFields.length; i++) {
 
 			Position pos = emptyFields[i];
-			if (!anyPlayerOverItem((int) pos.getX(), (int) pos.getY()))
-			{
+			if (!anyPlayerOverItem((int) pos.getX(), (int) pos.getY())) {
 
 				realEmptyFields.add(pos);
 			}
 		}
 
-		Position field = realEmptyFields.get((int) (Math.random() * (realEmptyFields.size() - 1)));
+		Position field = realEmptyFields
+				.get((int) (Math.random() * (realEmptyFields.size() - 1)));
 
 		pg.setFieldType((int) field.getX(), (int) field.getY(), type);
 	}
 
-	private void recalculatePositions(long elapsedTime)
-	{
+	private void recalculatePositions(long elapsedTime) {
 
 		JellyFish[] fishs = game.getJellyFishs();
 
-		for (int i = 0; i < fishs.length; i++)
-		{
+		for (int i = 0; i < fishs.length; i++) {
 
 			JellyFish fish = fishs[i];
 
-			double movement = TimeUtils.Seconds(elapsedTime) * (SPEED * fish.getSpeed());
+			double movement = TimeUtils.Seconds(elapsedTime)
+					* (SPEED * fish.getSpeed());
 
 			recalculatePosition(fish, elapsedTime, movement);
 
@@ -366,20 +341,16 @@ public class GameScene implements Scene
 
 	}
 
-	private void syncPos(JellyFish fish, AnimatedSceneObject ani)
-	{
+	private void syncPos(JellyFish fish, AnimatedSceneObject ani) {
 
 		int x;
 		int y;
 
-		if (isFreeMovement())
-		{
+		if (isFreeMovement()) {
 
 			x = (int) Math.round(fish.getX() * ani.getWidth());
 			y = (int) Math.round(fish.getY() * ani.getHeight());
-		}
-		else
-		{
+		} else {
 
 			x = (int) Math.round(fish.getX()) * (ani.getWidth());
 			y = (int) Math.round(fish.getY()) * (ani.getHeight());
@@ -388,38 +359,30 @@ public class GameScene implements Scene
 		ani.setTopLeftPosition(new Point(x, y));
 	}
 
-	private void checkForFishCollision()
-	{
+	private void checkForFishCollision() {
 
-		for (int i = 0; i < jellyAnis.length; i++)
-		{
+		for (int i = 0; i < jellyAnis.length; i++) {
 
-			do
-			{
-			}
-			while (checkCollisionFor(i));
+			do {
+			} while (checkCollisionFor(i));
 		}
 
 	}
 
-	private boolean checkCollisionFor(int col)
-	{
+	private boolean checkCollisionFor(int col) {
 
 		boolean anyCollision = false;
 
 		AnimatedSceneObject fish = jellyAnis[col];
 
-		for (int i = 0; i < jellyAnis.length; i++)
-		{
+		for (int i = 0; i < jellyAnis.length; i++) {
 
 			AnimatedSceneObject ani = jellyAnis[i];
-			if (fish == ani)
-			{
+			if (fish == ani) {
 				continue;
 			}
 
-			if (ani.collides(fish))
-			{
+			if (ani.collides(fish)) {
 
 				handleCollision(col, i);
 
@@ -430,8 +393,7 @@ public class GameScene implements Scene
 		return anyCollision;
 	}
 
-	private void handleCollision(int col1, int col2)
-	{
+	private void handleCollision(int col1, int col2) {
 
 		AnimatedSceneObject ani1 = jellyAnis[col1];
 		AnimatedSceneObject ani2 = jellyAnis[col2];
@@ -445,8 +407,7 @@ public class GameScene implements Scene
 		double px_X2 = 1.0 / ani2.getWidth();
 		double px_Y2 = 1.0 / ani2.getHeight();
 
-		do
-		{
+		do {
 
 			boolean rightIsRight = fish1.getX() > fish2.getX();
 			boolean rightIsOver = fish1.getY() < fish2.getY();
@@ -457,8 +418,7 @@ public class GameScene implements Scene
 				double pX = 0;
 				double pY = 0;
 
-				if (pX == 0 && pY == 0)
-				{
+				if (pX == 0 && pY == 0) {
 
 					pY = (rightIsOver) ? -px_Y1 : px_Y1;
 					pX = (rightIsRight) ? px_X1 : -px_X1;
@@ -473,8 +433,7 @@ public class GameScene implements Scene
 				double pX = 0;
 				double pY = 0;
 
-				if (pX == 0 && pY == 0)
-				{
+				if (pX == 0 && pY == 0) {
 
 					pY = (rightIsOver) ? px_Y2 : -px_Y2;
 					pX = (rightIsRight) ? -px_X2 : px_X2;
@@ -488,33 +447,28 @@ public class GameScene implements Scene
 
 			wallCollision(fish1);
 			wallCollision(fish2);
-		}
-		while (ani1.collides(ani2));
+		} while (ani1.collides(ani2));
 	}
 
-	private void recalculatePosition(JellyFish fish, long elapsedTime, double movement)
-	{
+	private void recalculatePosition(JellyFish fish, long elapsedTime,
+			double movement) {
 
 		double moveX = 0;
 		double moveY = 0;
 
-		if (fish.isMovingLeft())
-		{
+		if (fish.isMovingLeft()) {
 			moveX -= movement;
 		}
 
-		if (fish.isMovingRight())
-		{
+		if (fish.isMovingRight()) {
 			moveX += movement;
 		}
 
-		if (fish.isMovingUp())
-		{
+		if (fish.isMovingUp()) {
 			moveY -= movement;
 		}
 
-		if (fish.isMovingDown())
-		{
+		if (fish.isMovingDown()) {
 			moveY += movement;
 		}
 
@@ -527,15 +481,14 @@ public class GameScene implements Scene
 		double y = fish.getY();
 
 		if (x <= PlayGround.BORDER_WIDTH || y <= PlayGround.BORDER_WIDTH
-			|| x >= pg.getWidth() - PlayGround.BORDER_WIDTH - 1 || y >= pg.getHeight() - PlayGround.BORDER_WIDTH - 1)
-		{
+				|| x >= pg.getWidth() - PlayGround.BORDER_WIDTH - 1
+				|| y >= pg.getHeight() - PlayGround.BORDER_WIDTH - 1) {
 
 			wallCollision(fish);
 		}
 	}
 
-	private void wallCollision(JellyFish fish)
-	{
+	private void wallCollision(JellyFish fish) {
 
 		PlayGround pg = game.getPlayground();
 
@@ -551,11 +504,10 @@ public class GameScene implements Scene
 		fish.setPosition(x, y);
 	}
 
-	private void paintJellyFish(Graphics2D g, int width, int height, long elapsedTime)
-	{
+	private void paintJellyFish(Graphics2D g, int width, int height,
+			long elapsedTime) {
 
-		for (int i = 0; i < jellyAnis.length; i++)
-		{
+		for (int i = 0; i < jellyAnis.length; i++) {
 
 			AnimatedSceneObject ani = jellyAnis[i];
 
@@ -563,62 +515,61 @@ public class GameScene implements Scene
 		}
 	}
 
-	private void paintBoard(Graphics2D g, int width, int height, long elapsedTime)
-	{
+	private void paintBoard(Graphics2D g, int width, int height,
+			long elapsedTime) {
 
 		PlayGround playground = game.getPlayground();
 
 		int tWidth = width / playground.getWidth();
 		int tHeight = height / playground.getHeight();
 
-		for (int y = 0; y < playground.getHeight(); y++)
-		{
-			for (int x = 0; x < playground.getWidth(); x++)
-			{
+		for (int y = 0; y < playground.getHeight(); y++) {
+			for (int x = 0; x < playground.getWidth(); x++) {
 
-				switch (playground.getFieldType(x, y))
-				{
-					case BOX:
-						wall.setTopLeftPosition(new Point(x * tWidth, y * tHeight));
-						wall.paintOnScene(g, elapsedTime);
+				switch (playground.getFieldType(x, y)) {
+				case BOX:
+					wall.setTopLeftPosition(new Point(x * tWidth, y * tHeight));
+					wall.paintOnScene(g, elapsedTime);
 					break;
-					case JELLY:
-						jelly.setTopLeftPosition(new Point(x * tWidth, y * tHeight));
-						jelly.paintOnScene(g, elapsedTime);
+				case JELLY:
+					jelly.setTopLeftPosition(new Point(x * tWidth, y * tHeight));
+					jelly.paintOnScene(g, elapsedTime);
 					break;
-					case NAIL:
-						nail.setTopLeftPosition(new Point(x * tWidth, y * tHeight));
-						nail.paintOnScene(g, elapsedTime);
+				case NAIL:
+					nail.setTopLeftPosition(new Point(x * tWidth, y * tHeight));
+					nail.paintOnScene(g, elapsedTime);
 					break;
-					case POWERUP:
-						paintPowerup(playground.getField(x, y), g, elapsedTime, new Point(x * tWidth, y * tHeight),
-							tWidth, tHeight);
+				case POWERUP:
+					paintPowerup(playground.getField(x, y), g, elapsedTime,
+							new Point(x * tWidth, y * tHeight), tWidth, tHeight);
 					break;
-					default:
+				default:
 					break;
 				}
 			}
 		}
 	}
 
-	private void paintPowerup(Field powerup, Graphics2D g, long elapsedTime, Point point, int tWidth, int tHeight)
-	{
-		String imageString = powerup.getImage();
-		try
-		{
-			Image image = InternalImage.load(imageString);
-			g.drawImage(image, point.getX(), point.getY(), point.getX() + tWidth, point.getY() + tHeight, 0, 0,
-				image.getWidth(null), image.getHeight(null), null);
-		}
-		catch (Exception e)
-		{
+	private void paintPowerup(Field powerup, Graphics2D g, long elapsedTime,
+			Point point, int tWidth, int tHeight) {
+
+		int imageIndex = powerup.getImage();
+		try {
+
+			Graphics2D gt = (Graphics2D) g.create(point.getX(), point.getY(),
+					tWidth, tHeight);
+
+			powerups.drawTile(gt, imageIndex, 0, tWidth, tHeight);
+
+			gt.dispose();
+		} catch (Exception e) {
 			g.setColor(Color.RED);
-			g.fillRoundRect(point.getX(), point.getY(), tWidth, tHeight, (int) (tWidth * 0.1), (int) (tHeight * 0.1));
+			g.fillRoundRect(point.getX(), point.getY(), tWidth, tHeight,
+					(int) (tWidth * 0.1), (int) (tHeight * 0.1));
 		}
 	}
 
-	private void recalculateSize(int width, int height)
-	{
+	private void recalculateSize(int width, int height) {
 
 		PlayGround playground = game.getPlayground();
 
@@ -629,71 +580,72 @@ public class GameScene implements Scene
 		jelly.setSize(tWidth, tHeight);
 		nail.setSize(tWidth, tHeight);
 
-		for (int i = 0; i < jellyAnis.length; i++)
-		{
+		for (int i = 0; i < jellyAnis.length; i++) {
 
 			jellyAnis[i].setSize(tWidth, tHeight);
 		}
 	}
 
 	@Override
-	public EventListener[] getEventListeners()
-	{
+	public EventListener[] getEventListeners() {
 
 		return new EventListener[] { keys };
 	}
 
-	private void createGame(Color c1, Color c2)
-	{
+	private void createGame(Color c1, Color c2) {
 
-		KeyboardController controller1 = new KeyboardController(KeyboardController.WASD, keys);
+		KeyboardController controller1 = new KeyboardController(
+				KeyboardController.WASD, keys);
 
-		KeyboardController controller2 = new KeyboardController(KeyboardController.ARROW, keys);
+		KeyboardController controller2 = new KeyboardController(
+				KeyboardController.ARROW, keys);
 
 		JellyFish[] fish = new JellyFish[2];
 
 		fish[0] = new JellyFish(controller1, c1);
 		fish[1] = new JellyFish(controller2, c2);
 
-		game = new Game(new PlayGround(21, 21), fish);
+		game = new Game(new PlayGround(Constants.PLAYGROUND_WIDTH,
+				Constants.PLAYGROUND_HEIGHT), fish);
 	}
 
-	private void createSceneObjects(Color c1, Color c2)
-	{
+	private void createSceneObjects(Color c1, Color c2) {
 
-		Sprite objectSprite = new DefaultSprite(ImageUtils.BufferedImage(InternalImage.load("FieldSprite.png")), 32, 32);
+		Sprite objectSprite = new DefaultSprite(
+				ImageUtils.BufferedImage(InternalImage.load("FieldSprite.png")),
+				32, 32);
 
 		wall = new ImageSceneObject(objectSprite.getTile(0, 0));
 		nail = new ImageSceneObject(objectSprite.getTile(1, 0));
 		jelly = new ImageSceneObject(objectSprite.getTile(2, 0));
 
 		jellyAnis = new AnimatedSceneObject[2];
-		jellyAnis[0] = new AnimatedSceneObject(new ColoredSprite(new DefaultSprite(
-			ImageUtils.BufferedImage(InternalImage.load("FigureSprite.png")), 32, 32), c1),
-			TimeUtils.NanosecondsOfMilliseconds(100));
+		jellyAnis[0] = new AnimatedSceneObject(new ColoredSprite(
+				new DefaultSprite(ImageUtils.BufferedImage(InternalImage
+						.load("FigureSprite.png")), Constants.TILE_WIDTH,
+						Constants.TILE_HEIGHT), c1),
+				TimeUtils.NanosecondsOfMilliseconds(100));
 
-		jellyAnis[1] = new AnimatedSceneObject(new ColoredSprite(new DefaultSprite(
-			ImageUtils.BufferedImage(InternalImage.load("FigureSprite.png")), 32, 32), c2),
-			TimeUtils.NanosecondsOfMilliseconds(100));
+		jellyAnis[1] = new AnimatedSceneObject(new ColoredSprite(
+				new DefaultSprite(ImageUtils.BufferedImage(InternalImage
+						.load("FigureSprite.png")), Constants.TILE_WIDTH,
+						Constants.TILE_HEIGHT), c2),
+				TimeUtils.NanosecondsOfMilliseconds(100));
 	}
 
-	public boolean isFreeMovement()
-	{
+	public boolean isFreeMovement() {
 		return freeMovement;
 	}
 
-	public void setFreeMovement(boolean freeMovement)
-	{
+	public void setFreeMovement(boolean freeMovement) {
 		this.freeMovement = freeMovement;
 	}
 
-	public GameListener getGameListener()
-	{
+	public GameListener getGameListener() {
 		return gameListener;
 	}
 
-	public void setGameListener(GameListener gameListener)
-	{
+	public void setGameListener(GameListener gameListener) {
 		this.gameListener = gameListener;
 	}
 }

@@ -6,8 +6,7 @@ import java.util.List;
 import de.bno.jellysplush.data.field.Field;
 import de.bno.jellysplush.data.field.FieldType;
 
-public class PlayGround
-{
+public class PlayGround {
 
 	public static final int BORDER_WIDTH = 1;
 
@@ -17,20 +16,22 @@ public class PlayGround
 	private Field[][] field;
 
 	/**
-	 * Create a new playground. A border around this field will be created, so that the given width
-	 * and height will be increased by two.
+	 * Create a new playground. A border around this field will be created, so
+	 * that the given width and height will be increased by two.
 	 * 
-	 * @param width Width of the playable area
-	 * @param height Height of the playable area
+	 * @param width
+	 *            Width of the playable area
+	 * @param height
+	 *            Height of the playable area
 	 */
-	public PlayGround(int width, int height)
-	{
+	public PlayGround(int width, int height) {
 
-		if (width < BORDER_WIDTH + 1 || height < BORDER_WIDTH + 1)
-		{
+		if (width < BORDER_WIDTH + 1 || height < BORDER_WIDTH + 1) {
 
-			throw new IllegalArgumentException("Size to small. Minimum size is " + (BORDER_WIDTH + 1) + "x"
-				+ (BORDER_WIDTH + 1) + ". -> " + width + "x" + height);
+			throw new IllegalArgumentException(
+					"Size to small. Minimum size is " + (BORDER_WIDTH + 1)
+							+ "x" + (BORDER_WIDTH + 1) + ". -> " + width + "x"
+							+ height);
 		}
 
 		this.width = width + (2 * BORDER_WIDTH);
@@ -39,28 +40,23 @@ public class PlayGround
 		createField();
 	}
 
-	private void createField()
-	{
+	private void createField() {
 
 		field = new Field[this.height][this.width];
 		clearField();
 	}
 
-	public void clearField()
-	{
+	public void clearField() {
 
-		for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
 
-				if (y < BORDER_WIDTH || x < BORDER_WIDTH || y >= height - BORDER_WIDTH || x >= width - BORDER_WIDTH)
-				{
+				if (y < BORDER_WIDTH || x < BORDER_WIDTH
+						|| y >= height - BORDER_WIDTH
+						|| x >= width - BORDER_WIDTH) {
 
 					field[y][x] = new Field(FieldType.BOX);
-				}
-				else
-				{
+				} else {
 
 					field[y][x] = new Field(FieldType.EMPTY);
 				}
@@ -70,18 +66,14 @@ public class PlayGround
 		field[height / 2][width / 2] = new Field(FieldType.JELLY);
 	}
 
-	public Position[] getEmptyFields()
-	{
+	public Position[] getEmptyFields() {
 
 		List<Position> pos = new LinkedList<Position>();
 
-		for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
 
-				if (getFieldType(x, y) == FieldType.EMPTY)
-				{
+				if (getFieldType(x, y) == FieldType.EMPTY) {
 
 					pos.add(new Position(x, y));
 				}
@@ -91,52 +83,44 @@ public class PlayGround
 		return pos.toArray(new Position[pos.size()]);
 	}
 
-	public FieldType getFieldType(int x, int y)
-	{
+	public FieldType getFieldType(int x, int y) {
 
 		return field[y][x].getFieldType();
 	}
 
-	public void setFieldType(int x, int y, FieldType f)
-	{
+	public void setFieldType(int x, int y, FieldType f) {
 
 		field[y][x].setFieldType(f);
 	}
 
-	public boolean isAccessible(int x, int y)
-	{
+	public boolean isAccessible(int x, int y) {
 
 		return field[y][x].getFieldType() != FieldType.BOX;
 	}
 
-	public int getWidth()
-	{
+	public int getWidth() {
 
 		return this.width;
 	}
 
-	public int getHeight()
-	{
+	public int getHeight() {
 
 		return this.height;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 
 		String fieldString = "";
 
-		for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
 
-				fieldString += String.format(" %s ", "" + field[y][x].getFieldType().getCharRepresentation());
+				fieldString += String.format(" %s ", ""
+						+ field[y][x].getFieldType().getCharRepresentation());
 			}
 
-			if (y < height - 1)
-			{
+			if (y < height - 1) {
 				fieldString += "\n";
 			}
 		}
@@ -145,40 +129,36 @@ public class PlayGround
 	}
 
 	/**
-	 * The result of this method maybe unique every time it is called. The default implementation
-	 * creates {@link Position}s around the border.
+	 * The result of this method maybe unique every time it is called. The
+	 * default implementation creates {@link Position}s around the border.
 	 */
-	public Position[] getStartPositions(int numPositions)
-	{
+	public Position[] getStartPositions(int numPositions) {
 
-		if (numPositions > ((width - BORDER_WIDTH * 2) * 2) + ((height - BORDER_WIDTH * 2) * 2) - 4)
-		{
+		if (numPositions > ((width - BORDER_WIDTH * 2) * 2)
+				+ ((height - BORDER_WIDTH * 2) * 2) - 4) {
 			throw new ArrayIndexOutOfBoundsException("Max positions: "
-				+ (((width - BORDER_WIDTH * 2) * 2) + ((height - BORDER_WIDTH * 2) * 2) - 4));
+					+ (((width - BORDER_WIDTH * 2) * 2)
+							+ ((height - BORDER_WIDTH * 2) * 2) - 4));
 		}
 
-		if (numPositions <= 4)
-		{
+		if (numPositions <= 4) {
 			return getCirclePositions(numPositions);
-		}
-		else
-		{
+		} else {
 			return getBorderPositions(numPositions);
 		}
 	}
 
-	private Position[] getCirclePositions(int numPositions)
-	{
+	private Position[] getCirclePositions(int numPositions) {
 
 		Position[] circ = new Position[4];
 		circ[0] = new Position(BORDER_WIDTH, BORDER_WIDTH);
-		circ[1] = new Position(width - BORDER_WIDTH - 1, width - BORDER_WIDTH - 1);
+		circ[1] = new Position(width - BORDER_WIDTH - 1, width - BORDER_WIDTH
+				- 1);
 		circ[2] = new Position(width - BORDER_WIDTH - 1, BORDER_WIDTH);
 		circ[3] = new Position(BORDER_WIDTH, height - BORDER_WIDTH - 1);
 
 		Position[] ret = new Position[numPositions];
-		for (int i = 0; i < ret.length && i < circ.length; i++)
-		{
+		for (int i = 0; i < ret.length && i < circ.length; i++) {
 
 			ret[i] = circ[i];
 		}
@@ -186,37 +166,36 @@ public class PlayGround
 		return ret;
 	}
 
-	private Position[] getBorderPositions(int numPositions)
-	{
+	private Position[] getBorderPositions(int numPositions) {
 
 		Position[] pos = new Position[numPositions];
 
 		int index = 0;
 
-		loop: for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
+		loop: for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
 
-				boolean isLeftBorder = x == BORDER_WIDTH && y >= BORDER_WIDTH && y < height - BORDER_WIDTH;
+				boolean isLeftBorder = x == BORDER_WIDTH && y >= BORDER_WIDTH
+						&& y < height - BORDER_WIDTH;
 
-				boolean isRightBorder = x == width - BORDER_WIDTH - 1 && y >= BORDER_WIDTH && y < height - BORDER_WIDTH;
+				boolean isRightBorder = x == width - BORDER_WIDTH - 1
+						&& y >= BORDER_WIDTH && y < height - BORDER_WIDTH;
 
-				boolean isTopBorder = y == BORDER_WIDTH && x >= BORDER_WIDTH && x < width - BORDER_WIDTH;
+				boolean isTopBorder = y == BORDER_WIDTH && x >= BORDER_WIDTH
+						&& x < width - BORDER_WIDTH;
 
-				boolean isBottomBorder = y == height - BORDER_WIDTH - 1 && x >= BORDER_WIDTH
-					&& x < width - BORDER_WIDTH;
+				boolean isBottomBorder = y == height - BORDER_WIDTH - 1
+						&& x >= BORDER_WIDTH && x < width - BORDER_WIDTH;
 
-				if (isLeftBorder || isRightBorder || isTopBorder || isBottomBorder)
-				{
+				if (isLeftBorder || isRightBorder || isTopBorder
+						|| isBottomBorder) {
 
 					pos[index] = new Position(x, y);
 
 					index++;
 				}
 
-				if (!(index < pos.length))
-				{
+				if (!(index < pos.length)) {
 					break loop;
 				}
 			}
@@ -225,9 +204,17 @@ public class PlayGround
 		return pos;
 	}
 
-	public Field getField(int x, int y)
-	{
+	public Field getField(int x, int y) {
 
 		return field[y][x];
+	}
+
+	public Field setField(int x, int y, Field field) {
+
+		Field before = this.field[y][x];
+
+		this.field[y][x] = field;
+
+		return before;
 	}
 }

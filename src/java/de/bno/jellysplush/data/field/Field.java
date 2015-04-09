@@ -1,40 +1,33 @@
 package de.bno.jellysplush.data.field;
 
-public class Field
-{
+public class Field {
 
 	private FieldType fieldType;
-	private String image;
+	private int image;
 
-	public Field()
-	{
+	public Field() {
 
 		this(FieldType.EMPTY);
 	}
 
-	public Field(FieldType fieldType)
-	{
+	public Field(FieldType fieldType) {
 
 		this.fieldType = fieldType;
 	}
 
-	public FieldType getFieldType()
-	{
+	public FieldType getFieldType() {
 		return fieldType;
 	}
 
-	public void setFieldType(FieldType fieldType)
-	{
+	public void setFieldType(FieldType fieldType) {
 		this.fieldType = fieldType;
 	}
 
-	public String getImage()
-	{
+	public int getImage() {
 		return image;
 	}
 
-	public void setImage(String image)
-	{
+	public void setImage(int image) {
 		this.image = image;
 	}
 
