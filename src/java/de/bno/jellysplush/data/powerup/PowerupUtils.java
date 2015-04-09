@@ -11,6 +11,7 @@ public class PowerupUtils {
 	static {
 
 		powerups.add(new SpeedPowerup());
+		powerups.add(new SlowPowerup());
 	}
 
 	public static List<Powerup> getPowerups() {
