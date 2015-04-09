@@ -13,6 +13,8 @@ public class Settings {
 	public static final String KEY_USED_POWERUPS = "powerups_used";
 	public static final String KEY_BACKGROUND_COLOR = "background_color";
 	public static final String KEY_USER_COLORS = "user_colors";
+	public static final String KEY_PLAYGROUND_WIDTH = "playground_width";
+	public static final String KEY_PLAYGROUND_HEIGHT = "playground_height";
 
 	public static final Properties props = new Properties(
 			System.getProperties());
