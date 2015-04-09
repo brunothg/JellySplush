@@ -3,6 +3,9 @@ package de.bno.jellysplush.data;
 import java.util.LinkedList;
 import java.util.List;
 
+import de.bno.jellysplush.data.field.Field;
+import de.bno.jellysplush.data.field.FieldType;
+
 public class PlayGround
 {
 

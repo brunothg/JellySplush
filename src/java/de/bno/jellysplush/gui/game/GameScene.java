@@ -19,11 +19,11 @@ import java.util.EventListener;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.bno.jellysplush.data.FieldType;
 import de.bno.jellysplush.data.Game;
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.PlayGround;
 import de.bno.jellysplush.data.Position;
+import de.bno.jellysplush.data.field.FieldType;
 import de.bno.jellysplush.gui.KeyboardController;
 
 public class GameScene implements Scene

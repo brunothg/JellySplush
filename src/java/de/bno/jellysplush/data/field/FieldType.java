@@ -1,4 +1,4 @@
-package de.bno.jellysplush.data;
+package de.bno.jellysplush.data.field;
 
 public enum FieldType {
 
