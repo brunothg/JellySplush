@@ -2,8 +2,9 @@ package de.bno.jellysplush.data.powerup;
 
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.PlayGround;
+import de.bno.jellysplush.data.field.Field;
 
-public class DefaultPowerup implements Powerup
+public class DefaultPowerup extends Field implements Powerup
 {
 
 	@Override
