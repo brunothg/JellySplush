@@ -208,7 +208,10 @@ public class GameScene implements Scene
 			switch (pg.getFieldType(posX, posY))
 			{
 				case NAIL:
-					fish.setLifes(fish.getLifes() - 1);
+					if (!fish.isInvincible())
+					{
+						fish.setLifes(fish.getLifes() - 1);
+					}
 					pg.setFieldType(posX, posY, FieldType.EMPTY);
 					nailCount++;
 					System.out.println("Nail!!!");
@@ -232,7 +235,7 @@ public class GameScene implements Scene
 
 	private void jellyFetchesPowerup(Field field, JellyFish ownFish)
 	{
-		System.out.println("Jelly fetches Powerup");
+		System.out.println("Powerup!!!");
 
 		if (field instanceof Powerup == false)
 		{

@@ -13,6 +13,7 @@ public class JellyFish
 	private int lifes;
 	private int points;
 	private double speed = 1.0;
+	private boolean invincible = false;
 
 	public JellyFish(GameController controller)
 	{
@@ -151,6 +152,16 @@ public class JellyFish
 	public void setSpeed(double speed)
 	{
 		this.speed = speed;
+	}
+
+	public boolean isInvincible()
+	{
+		return invincible;
+	}
+
+	public void setInvincible(boolean invincible)
+	{
+		this.invincible = invincible;
 	}
 
 }
