@@ -3,6 +3,7 @@ package de.bno.jellysplush.data.powerup.powerups;
 import de.bno.jellysplush.Constants;
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.powerup.DefaultPowerup;
+import de.bno.jellysplush.data.powerup.Powerup;
 
 public class SlowPowerup extends DefaultPowerup
 {
@@ -21,5 +22,11 @@ public class SlowPowerup extends DefaultPowerup
 	{
 
 		fish.setSpeed(Math.max(MIN_SPEED, fish.getSpeed() + SPEED_PLUS));
+	}
+
+	@Override
+	public Powerup clone()
+	{
+		return new SpeedPowerup();
 	}
 }

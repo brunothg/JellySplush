@@ -59,6 +59,6 @@ public class DefaultStrategy implements PowerupStrategy
 		Collections.shuffle(fields);
 
 		Position position = fields.get(0);
-		playground.setField((int) position.getX(), (int) position.getY(), new PowerupField(powerup));
+		playground.setField((int) position.getX(), (int) position.getY(), new PowerupField(powerup.clone()));
 	}
 }

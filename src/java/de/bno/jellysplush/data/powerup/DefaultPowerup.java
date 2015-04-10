@@ -102,4 +102,6 @@ public abstract class DefaultPowerup implements Powerup
 		this.lifetimeOnBoard = Math.max(0, lifetimeOnBoard);
 	}
 
+	@Override
+	public abstract Powerup clone();
 }

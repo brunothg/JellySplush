@@ -23,4 +23,6 @@ public interface Powerup
 	public void manipulatePlayGround(PlayGround playground);
 
 	public int getId();
+
+	public Powerup clone();
 }
