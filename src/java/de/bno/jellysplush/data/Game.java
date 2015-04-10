@@ -64,7 +64,7 @@ public class Game {
 
 		for (int i = 0; i < jellyFishs.length; i++) {
 
-			jellyFishs[i].applyModifications(elapsedTime);
+			jellyFishs[i].applyModifications(this, elapsedTime);
 		}
 	}
 }

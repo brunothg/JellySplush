@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import de.bno.jellysplush.Settings;
+import de.bno.jellysplush.data.powerup.powerups.DrunkPowerup;
 import de.bno.jellysplush.data.powerup.powerups.LifePowerup;
 import de.bno.jellysplush.data.powerup.powerups.SlowPowerup;
 import de.bno.jellysplush.data.powerup.powerups.SpeedPowerup;
@@ -23,6 +24,7 @@ public class PowerupUtils {
 		powerups.add(new TransporterPowerup());
 		powerups.add(new WallPowerup());
 		powerups.add(new LifePowerup());
+		powerups.add(new DrunkPowerup());
 
 		int[] usedPowerups = Settings.getIntArray(Settings.KEY_USED_POWERUPS,
 				null);
