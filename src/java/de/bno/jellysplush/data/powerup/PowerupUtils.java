@@ -9,25 +9,29 @@ import de.bno.jellysplush.Settings;
 import de.bno.jellysplush.data.powerup.powerups.SlowPowerup;
 import de.bno.jellysplush.data.powerup.powerups.SpeedPowerup;
 
-public class PowerupUtils {
+public class PowerupUtils
+{
 
 	private static final List<Powerup> powerups = new ArrayList<Powerup>(2);
 
-	static {
+	static
+	{
 
 		powerups.add(new SpeedPowerup());
 		powerups.add(new SlowPowerup());
 
-		int[] usedPowerups = Settings.getIntArray(Settings.KEY_USED_POWERUPS,
-				null);
+		int[] usedPowerups = Settings.getIntArray(Settings.KEY_USED_POWERUPS, null);
 
-		if (usedPowerups != null && usedPowerups.length > 0) {
+		if (usedPowerups != null && usedPowerups.length > 0)
+		{
 
 			Iterator<Powerup> iterator = powerups.iterator();
-			while (iterator.hasNext()) {
+			while (iterator.hasNext())
+			{
 
 				Powerup next = iterator.next();
-				if (!contains(usedPowerups, next.getId())) {
+				if (!contains(usedPowerups, next.getId()))
+				{
 
 					iterator.remove();
 					System.out.println("Remove powerup " + next.getId());
@@ -37,11 +41,14 @@ public class PowerupUtils {
 
 	}
 
-	private static boolean contains(int[] usedPowerups, int id) {
+	private static boolean contains(int[] usedPowerups, int id)
+	{
 
-		for (int i = 0; i < usedPowerups.length; i++) {
+		for (int i = 0; i < usedPowerups.length; i++)
+		{
 
-			if (usedPowerups[i] == id) {
+			if (usedPowerups[i] == id)
+			{
 
 				return true;
 			}
@@ -50,7 +57,8 @@ public class PowerupUtils {
 		return false;
 	}
 
-	public static List<Powerup> getPowerups() {
+	public static List<Powerup> getPowerups()
+	{
 
 		List<Powerup> ret = new ArrayList<Powerup>(powerups.size());
 		ret.addAll(powerups);
@@ -58,7 +66,8 @@ public class PowerupUtils {
 		return ret;
 	}
 
-	public static Powerup[] getRandomPowerups(int anz) {
+	public static Powerup[] getRandomPowerups(int anz)
+	{
 
 		Collections.shuffle(powerups);
 
@@ -66,10 +75,13 @@ public class PowerupUtils {
 
 		int index = 0;
 
-		while (index < ret.length) {
-			for (Powerup power : powerups) {
+		while (index < ret.length)
+		{
+			for (Powerup power : powerups)
+			{
 
-				if (index >= ret.length) {
+				if (index >= ret.length)
+				{
 					break;
 				}
 

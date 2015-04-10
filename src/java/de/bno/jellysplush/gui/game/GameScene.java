@@ -84,9 +84,9 @@ public class GameScene implements Scene
 		recalculateSize(width, height);
 		checkPowerupStatus(elapsedTime);
 		applyModifications(elapsedTime);
-		recalculatePositions(elapsedTime);
-		checkForFishCollision();
+		updatePositions(elapsedTime);
 		checkForItemCollision();
+		updateJellyFields();
 		powerupStrategy.timeElapsed(elapsedTime, game);
 
 		paintBoard(g, width, height, elapsedTime);
@@ -101,6 +101,39 @@ public class GameScene implements Scene
 
 		checkPoints();
 		checkLifes();
+	}
+
+	private void updateJellyFields()
+	{
+
+		PlayGround playground = game.getPlayground();
+
+		for (int y = 0; y < playground.getHeight(); y++)
+		{
+			for (int x = 0; x < playground.getWidth(); x++)
+			{
+
+				if (playground.getFieldType(x, y) == FieldType.JELLYFISH)
+				{
+
+					playground.setFieldType(x, y, FieldType.EMPTY);
+				}
+			}
+		}
+
+		JellyFish[] jellyFishs = game.getJellyFishs();
+		for (int i = 0; i < jellyFishs.length; i++)
+		{
+			JellyFish fish = jellyFishs[i];
+			playground.setFieldType((int) Math.round(fish.getX()), (int) Math.round(fish.getY()), FieldType.JELLYFISH);
+		}
+	}
+
+	private void updatePositions(long elapsedTime)
+	{
+
+		recalculatePositions(elapsedTime);
+		checkForFishCollision();
 	}
 
 	private void checkPowerupStatus(long elapsedTime)
@@ -657,6 +690,7 @@ public class GameScene implements Scene
 	{
 
 		int imageIndex = powerup.getImage();
+
 		try
 		{
 

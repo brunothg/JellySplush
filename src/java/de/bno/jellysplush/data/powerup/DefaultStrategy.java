@@ -55,6 +55,7 @@ public class DefaultStrategy implements PowerupStrategy
 	{
 
 		Powerup powerup = PowerupUtils.getRandomPowerups(1)[0];
+
 		List<Position> fields = Arrays.asList(playground.getEmptyFields());
 		Collections.shuffle(fields);
 

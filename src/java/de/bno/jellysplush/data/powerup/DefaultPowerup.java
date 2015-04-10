@@ -1,6 +1,7 @@
 package de.bno.jellysplush.data.powerup;
 
 import game.engine.time.TimeUtils;
+import de.bno.jellysplush.Constants;
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.PlayGround;
 
@@ -19,7 +20,7 @@ public abstract class DefaultPowerup implements Powerup
 	public DefaultPowerup(int id)
 	{
 
-		this(id, TimeUtils.NanosecondsOfSeconds(5));
+		this(id, TimeUtils.NanosecondsOfSeconds(Constants.POWERUP_LIFETIME_DEFAULT));
 	}
 
 	public DefaultPowerup(int id, long lifeTime)

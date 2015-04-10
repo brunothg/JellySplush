@@ -27,6 +27,6 @@ public class SlowPowerup extends DefaultPowerup
 	@Override
 	public Powerup clone()
 	{
-		return new SpeedPowerup();
+		return new SlowPowerup();
 	}
 }

@@ -2,7 +2,7 @@ package de.bno.jellysplush.data.field;
 
 public enum FieldType {
 
-	EMPTY(' '), JELLY('°'), NAIL('^'), BOX('X'), POWERUP('P');
+	EMPTY(' '), JELLY('°'), NAIL('^'), BOX('X'), POWERUP('P'), JELLYFISH('J');
 
 	private char charRepresentation;
 
