@@ -52,8 +52,8 @@ public class WallPowerup extends DefaultPowerup {
 		int _x = (int) (pos.getX());
 		int _y = (int) (pos.getY());
 
-		for (int y = _y - 1; y < _y + 1; y++) {
-			for (int x = _x - 1; x < _x + 1; x++) {
+		for (int y = _y - 1; y <= _y + 1; y++) {
+			for (int x = _x - 1; x <= _x + 1; x++) {
 				if (y != _y && x != _x) {
 
 					try {
