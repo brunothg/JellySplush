@@ -90,7 +90,7 @@ public class GameScene implements Scene {
 		applyModifications(elapsedTime);
 		updatePositions(elapsedTime);
 		checkForItemCollision();
-		updateJellyFields();
+		// JellyPositionen sind jetzt neu gesetzt
 		powerupStrategy.timeElapsed(elapsedTime, game);
 
 		paintBoard(g, width, height, elapsedTime);
@@ -297,6 +297,7 @@ public class GameScene implements Scene {
 			}
 		}
 
+		updateJellyFields();
 		updateJellyAndNails(jellyCount, nailCount);
 	}
 
@@ -368,6 +369,7 @@ public class GameScene implements Scene {
 					case POWERUP:
 					default:
 						playground.setFieldType(x, y, FieldType.JELLY);
+						System.out.println(x + " " + y);
 						break;
 
 					}
@@ -386,7 +388,7 @@ public class GameScene implements Scene {
 		if (fields.size() > 0) {
 
 			Position pos = fields.get(0);
-			pg.setFieldType((int) (pos.getX()), (int) (pos.getX()), type);
+			pg.setFieldType((int) (pos.getX()), (int) (pos.getY()), type);
 
 			return true;
 		}
@@ -518,8 +520,8 @@ public class GameScene implements Scene {
 			syncPos(fish1, ani1);
 			syncPos(fish2, ani2);
 
-			wallCollision(fish1);
-			wallCollision(fish2);
+			borderCollision(fish1);
+			borderCollision(fish2);
 		} while (ani1.collides(ani2));
 	}
 
@@ -557,11 +559,37 @@ public class GameScene implements Scene {
 				|| x >= pg.getWidth() - PlayGround.BORDER_WIDTH - 1
 				|| y >= pg.getHeight() - PlayGround.BORDER_WIDTH - 1) {
 
-			wallCollision(fish);
+			borderCollision(fish);
+		} else if (pg.getFieldType((int) Math.round(x), (int) Math.round(y)) == FieldType.BOX) {
+
+			wallCollision(fish, (int) Math.round(x), (int) Math.round(y),
+					moveX, moveY);
 		}
+
 	}
 
-	private void wallCollision(JellyFish fish) {
+	private void wallCollision(JellyFish fish, int x, int y, double moveX,
+			double moveY) {
+
+		double _x = x;
+		double _y = y;
+
+		if (moveX < 0) {
+			_x = Math.ceil(_x + 0.1);
+		} else if (moveX > 0) {
+			_x = Math.floor(_x - 0.1);
+		}
+
+		if (moveY < 0) {
+			_y = Math.ceil(_y + 0.1);
+		} else if (moveY > 0) {
+			_y = Math.floor(_y - 0.1);
+		}
+
+		fish.setPosition(_x, _y);
+	}
+
+	private void borderCollision(JellyFish fish) {
 
 		PlayGround pg = game.getPlayground();
 

@@ -30,4 +30,10 @@ public class Position {
 	public void setX(double x) {
 		this.x = x;
 	}
+
+	@Override
+	public String toString() {
+
+		return String.format("%.2f / %.2f", x, y);
+	}
 }

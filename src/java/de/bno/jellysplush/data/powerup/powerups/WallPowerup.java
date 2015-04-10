@@ -14,7 +14,7 @@ public class WallPowerup extends DefaultPowerup {
 
 	public WallPowerup() {
 
-		super(2);
+		super(4);
 	}
 
 	@Override
