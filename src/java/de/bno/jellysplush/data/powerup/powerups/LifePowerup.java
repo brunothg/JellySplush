@@ -9,7 +9,7 @@ import de.bno.jellysplush.data.powerup.Powerup;
 
 public class LifePowerup extends DefaultPowerup {
 
-	private static final double EXTENDED_LIFETIME = 0.5;
+	private static final double EXTENDED_LIFETIME = 0.2;
 
 	public LifePowerup() {
 
