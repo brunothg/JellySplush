@@ -33,7 +33,7 @@ public class Main {
 
 	private static void setupWindow() {
 
-		display = new SwingGameFrame("JellySplush");
+		display = new SwingGameFrame(Constants.WINDOW_TITLE);
 		display.setLocationRelativeTo(null);
 		display.setSize(WINDOW_SIZE.width, WINDOW_SIZE.height);
 		display.setCursor(ImageUtils.createEmptyCursor(null));
