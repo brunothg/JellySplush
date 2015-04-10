@@ -68,4 +68,10 @@ public class PowerupField extends Field implements Powerup
 		return powerup.getId();
 	}
 
+	@Override
+	public Powerup clone()
+	{
+
+		return powerup.clone();
+	}
 }
