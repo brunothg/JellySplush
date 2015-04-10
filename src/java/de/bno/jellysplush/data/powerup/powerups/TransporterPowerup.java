@@ -28,7 +28,7 @@ public class TransporterPowerup extends DefaultPowerup {
 		Collections.shuffle(fields);
 
 		Position p1 = fields.get(0);
-		Position p2 = fields.get(1);
+		Position p2 = fields.get(fields.size() - 1);
 
 		WormholePowerup w1 = new WormholePowerup(p1, p2);
 		WormholePowerup w2 = new WormholePowerup(p2, p1);
