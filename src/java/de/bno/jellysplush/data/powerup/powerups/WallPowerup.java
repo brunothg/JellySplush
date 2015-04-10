@@ -41,7 +41,7 @@ public class WallPowerup extends DefaultPowerup {
 
 		Position p1 = fields.get(0);
 
-		playground.setFieldType((int) (p1.getX()), (int) (p1.getX()),
+		playground.setFieldType((int) (p1.getX()), (int) (p1.getY()),
 				FieldType.BOX);
 	}
 

@@ -387,7 +387,8 @@ public class GameScene implements Scene {
 
 		if (fields.size() > 0) {
 
-			Position pos = fields.get(0);
+			Position pos = fields
+					.get((int) (Math.random() * (fields.size() - 1)));
 			pg.setFieldType((int) (pos.getX()), (int) (pos.getY()), type);
 
 			return true;
