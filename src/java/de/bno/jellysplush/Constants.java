@@ -28,6 +28,10 @@ public class Constants
 	public static final double MAX_REL_SPEED = 3.0;
 	public static final double MIN_REL_SPEED = 0.1;
 
+	public static final Color COUNTDOWN_COLOR = Color.BLACK;
+	public static final Color START_COLOR_1 = new Color(235, 229, 48);
+	public static final Color START_COLOR_2 = new Color(255, 248, 24);
+
 	public static final long POWERUP_LIFETIME = Settings
 		.getInt(Settings.KEY_POWERUP_LIFETIME, POWERUP_LIFETIME_DEFAULT);
 
