@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import de.bno.jellysplush.Settings;
+import de.bno.jellysplush.data.powerup.powerups.SlowPowerup;
+import de.bno.jellysplush.data.powerup.powerups.SpeedPowerup;
 
 public class PowerupUtils {
 
