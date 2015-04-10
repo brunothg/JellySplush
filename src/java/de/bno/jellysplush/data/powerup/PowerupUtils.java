@@ -9,6 +9,7 @@ import de.bno.jellysplush.Settings;
 import de.bno.jellysplush.data.powerup.powerups.SlowPowerup;
 import de.bno.jellysplush.data.powerup.powerups.SpeedPowerup;
 import de.bno.jellysplush.data.powerup.powerups.TransporterPowerup;
+import de.bno.jellysplush.data.powerup.powerups.WallPowerup;
 
 public class PowerupUtils {
 
@@ -19,6 +20,7 @@ public class PowerupUtils {
 		powerups.add(new SpeedPowerup());
 		powerups.add(new SlowPowerup());
 		powerups.add(new TransporterPowerup());
+		powerups.add(new WallPowerup());
 
 		int[] usedPowerups = Settings.getIntArray(Settings.KEY_USED_POWERUPS,
 				null);
