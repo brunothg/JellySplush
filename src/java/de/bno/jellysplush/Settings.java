@@ -38,24 +38,32 @@ public class Settings
 	public static boolean getBoolean(String key, boolean def)
 	{
 
-		String property = props.getProperty(key).trim();
-
-		if (property == null)
+		try
 		{
+			String property = props.getProperty(key).trim();
 
-			return def;
+			if (property == null)
+			{
+
+				return def;
+			}
+			else
+			{
+
+				try
+				{
+					return Boolean.valueOf(property);
+				}
+				catch (Exception e)
+				{
+					System.err.println(key + " -> Properties read ex: " + e.getMessage());
+				}
+			}
 		}
-		else
+		catch (Exception e)
 		{
-
-			try
-			{
-				return Boolean.valueOf(property);
-			}
-			catch (Exception e)
-			{
-				System.err.println(key + " -> Properties read ex: " + e.getMessage());
-			}
+			e.printStackTrace();
+			return def;
 		}
 
 		return def;
@@ -64,59 +72,74 @@ public class Settings
 	public static Color getColor(String key, Color def)
 	{
 
-		String property = props.getProperty(key).trim();
-
-		if (property == null)
+		try
 		{
+			String property = props.getProperty(key).trim();
 
+			if (property == null)
+			{
+
+				return def;
+			}
+			else
+			{
+
+				try
+				{
+					return Color.decode(property);
+				}
+				catch (Exception e)
+				{
+					System.err.println(key + " -> Properties read ex: " + e.getMessage());
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
 			return def;
 		}
-		else
-		{
-
-			try
-			{
-				return Color.decode(property);
-			}
-			catch (Exception e)
-			{
-				System.err.println(key + " -> Properties read ex: " + e.getMessage());
-			}
-		}
-
 		return def;
 	}
 
 	public static Color[] getColorArray(String key, Color[] def)
 	{
 
-		String property = props.getProperty(key);
-
-		if (property == null)
+		try
 		{
+			String property = props.getProperty(key);
 
-			return def;
-		}
-		else
-		{
-
-			try
+			if (property == null)
 			{
-				String[] colors = property.split(",");
-				Color[] cols = new Color[colors.length];
 
-				for (int i = 0; i < cols.length; i++)
+				return def;
+			}
+			else
+			{
+
+				try
 				{
+					String[] colors = property.split(",");
+					Color[] cols = new Color[colors.length];
 
-					cols[i] = Color.decode(colors[i].trim());
+					for (int i = 0; i < cols.length; i++)
+					{
+
+						cols[i] = Color.decode(colors[i].trim());
+					}
+
+					return cols;
 				}
-
-				return cols;
+				catch (Exception e)
+				{
+					System.err.println(key + " -> Properties read ex: " + e.getMessage());
+				}
 			}
-			catch (Exception e)
-			{
-				System.err.println(key + " -> Properties read ex: " + e.getMessage());
-			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return def;
 		}
 
 		return def;
@@ -125,24 +148,32 @@ public class Settings
 	public static int getInt(String key, int def)
 	{
 
-		String property = props.getProperty(key).trim();
-
-		if (property == null)
+		try
 		{
+			String property = props.getProperty(key).trim();
 
-			return def;
+			if (property == null)
+			{
+
+				return def;
+			}
+			else
+			{
+
+				try
+				{
+					return Integer.valueOf(property);
+				}
+				catch (Exception e)
+				{
+					System.err.println(key + " -> Properties read ex: " + e.getMessage());
+				}
+			}
 		}
-		else
+		catch (Exception e)
 		{
-
-			try
-			{
-				return Integer.valueOf(property);
-			}
-			catch (Exception e)
-			{
-				System.err.println(key + " -> Properties read ex: " + e.getMessage());
-			}
+			e.printStackTrace();
+			return def;
 		}
 
 		return def;
@@ -151,36 +182,44 @@ public class Settings
 	public static int[] getIntArray(String key, int[] def)
 	{
 
-		String property = props.getProperty(key);
-
-		if (property == null)
+		try
 		{
+			String property = props.getProperty(key);
 
-			return def;
-		}
-		else
-		{
-
-			try
+			if (property == null)
 			{
 
-				String[] ints = property.split(",");
-				int[] ret = new int[ints.length];
+				return def;
+			}
+			else
+			{
 
-				int index = 0;
-				for (String s : ints)
+				try
 				{
 
-					ret[index] = Integer.valueOf(s.trim());
-					index++;
-				}
+					String[] ints = property.split(",");
+					int[] ret = new int[ints.length];
 
-				return ret;
+					int index = 0;
+					for (String s : ints)
+					{
+
+						ret[index] = Integer.valueOf(s.trim());
+						index++;
+					}
+
+					return ret;
+				}
+				catch (Exception e)
+				{
+					System.err.println(key + " -> Properties read ex: " + e.getMessage());
+				}
 			}
-			catch (Exception e)
-			{
-				System.err.println(key + " -> Properties read ex: " + e.getMessage());
-			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return def;
 		}
 
 		return def;
@@ -189,24 +228,32 @@ public class Settings
 	public static double getDouble(String key, double def)
 	{
 
-		String property = props.getProperty(key).trim();
-
-		if (property == null)
+		try
 		{
+			String property = props.getProperty(key).trim();
 
-			return def;
+			if (property == null)
+			{
+
+				return def;
+			}
+			else
+			{
+
+				try
+				{
+					return Double.valueOf(property);
+				}
+				catch (Exception e)
+				{
+					System.err.println(key + " -> Properties read ex: " + e.getMessage());
+				}
+			}
 		}
-		else
+		catch (Exception e)
 		{
-
-			try
-			{
-				return Double.valueOf(property);
-			}
-			catch (Exception e)
-			{
-				System.err.println(key + " -> Properties read ex: " + e.getMessage());
-			}
+			e.printStackTrace();
+			return def;
 		}
 
 		return def;
@@ -216,19 +263,26 @@ public class Settings
 	{
 
 		Class<?> ret = def;
-
 		try
 		{
-			Class<?> load = Class.forName(props.getProperty(key));
 
-			if (load != null)
+			try
 			{
+				Class<?> load = Class.forName(props.getProperty(key));
 
-				ret = load;
+				if (load != null)
+				{
+
+					ret = load;
+				}
+			}
+			catch (ClassNotFoundException e)
+			{
 			}
 		}
-		catch (ClassNotFoundException e)
+		catch (Exception e)
 		{
+			e.printStackTrace();
 		}
 
 		return ret;
