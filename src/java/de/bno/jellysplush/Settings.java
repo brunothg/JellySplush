@@ -17,6 +17,7 @@ public class Settings
 	public static final String KEY_PLAYGROUND_WIDTH = "playground_width";
 	public static final String KEY_PLAYGROUND_HEIGHT = "playground_height";
 	public static final String KEY_STRATEGY = "powerup_strategy";
+	public static final String KEY_POWERUP_TIME = "powerup_time";
 
 	public static final Properties props = new Properties(System.getProperties());
 

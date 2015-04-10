@@ -82,6 +82,7 @@ public class GameScene implements Scene
 		g.fillRect(0, 0, width, height);
 
 		recalculateSize(width, height);
+		checkPowerupStatus(elapsedTime);
 		applyModifications(elapsedTime);
 		recalculatePositions(elapsedTime);
 		checkForFishCollision();
@@ -100,6 +101,33 @@ public class GameScene implements Scene
 
 		checkPoints();
 		checkLifes();
+	}
+
+	private void checkPowerupStatus(long elapsedTime)
+	{
+
+		PlayGround playground = game.getPlayground();
+
+		for (int y = 0; y < playground.getHeight(); y++)
+		{
+			for (int x = 0; x < playground.getWidth(); x++)
+			{
+
+				Field field = playground.getField(x, y);
+
+				if (field.getFieldType() == FieldType.POWERUP && field instanceof Powerup)
+				{
+
+					Powerup powerup = (Powerup) field;
+
+					if (!powerup.isAlive(elapsedTime))
+					{
+
+						playground.setField(x, y, new Field(FieldType.EMPTY));
+					}
+				}
+			}
+		}
 	}
 
 	private void applyModifications(long elapsedTime)

@@ -1,23 +1,55 @@
 package de.bno.jellysplush.data.powerup;
 
+import game.engine.time.TimeUtils;
+import de.bno.jellysplush.Constants;
+import de.bno.jellysplush.Settings;
 import de.bno.jellysplush.data.Game;
 import de.bno.jellysplush.data.JellyFish;
+import de.bno.jellysplush.data.PlayGround;
+import de.bno.jellysplush.data.field.Field;
+import de.bno.jellysplush.data.field.FieldType;
 
 public class DefaultStrategy implements PowerupStrategy
 {
 
+	private static final long POWERUP_CREATION_TIME = Math.abs(TimeUtils.NanosecondsOfSeconds(Settings.getInt(
+		Settings.KEY_POWERUP_TIME, Constants.POWERUP_TIME_DEFAULT)));
+	private long time = 0;
+
 	@Override
 	public void timeElapsed(long elapsedTime, Game game)
 	{
-		// TODO Auto-generated method stub
 
+		time += elapsedTime;
+
+		if (time > POWERUP_CREATION_TIME)
+		{
+			time = 0;
+
+			createRandomPowerup(game.getPlayground());
+		}
 	}
 
 	@Override
 	public void playerConsumedItem(JellyFish fish, int x, int y, Game game)
 	{
-		// TODO Auto-generated method stub
 
+		Field consumedField = game.getPlayground().getField(x, y);
+		FieldType fieldType = consumedField.getFieldType();
+
+		switch (fieldType)
+		{
+			case NAIL:
+				createRandomPowerup(game.getPlayground());
+			break;
+			default:
+			break;
+		}
 	}
 
+	private void createRandomPowerup(PlayGround playground)
+	{
+
+		//TODO createRandomPowerup
+	}
 }
