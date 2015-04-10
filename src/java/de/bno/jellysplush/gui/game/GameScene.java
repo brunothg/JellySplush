@@ -249,6 +249,13 @@ public class GameScene implements Scene
 			int posY = (int) Math.round(fish.getY());
 
 			FieldType fieldType = pg.getFieldType(posX, posY);
+
+			if (fieldType == FieldType.JELLY || fieldType == FieldType.NAIL || fieldType == FieldType.POWERUP)
+			{
+
+				powerupStrategy.playerConsumedItem(fish, posX, posY, game);
+			}
+
 			switch (fieldType)
 			{
 				case NAIL:
@@ -268,16 +275,11 @@ public class GameScene implements Scene
 				break;
 				case POWERUP:
 					jellyFetchesPowerup(getField(posX, posY), fish);
+					pg.setFieldType(posX, posY, FieldType.EMPTY);
 					System.out.println("Powerup!!!");
 				break;
 				default:
 				break;
-			}
-
-			if (fieldType == FieldType.JELLY || fieldType == FieldType.NAIL || fieldType == FieldType.POWERUP)
-			{
-
-				powerupStrategy.playerConsumedItem(fish, posX, posY, game);
 			}
 		}
 

@@ -3,34 +3,46 @@ package de.bno.jellysplush.data.powerup;
 import game.engine.time.TimeUtils;
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.PlayGround;
-import de.bno.jellysplush.data.field.Field;
-import de.bno.jellysplush.data.field.FieldType;
 
-public abstract class DefaultPowerup extends Field implements Powerup
+public abstract class DefaultPowerup implements Powerup
 {
 
 	private long time = 0;
 
-	private long lifetimeOnBoard = TimeUtils.NanosecondsOfSeconds(5);
+	private long lifetimeOnBoard;
 
-	private boolean alive;
+	private boolean alive = true;
 	boolean fetched = false;
 
-	public DefaultPowerup()
+	private int id;
+
+	public DefaultPowerup(int id)
 	{
 
-		super(FieldType.POWERUP);
+		this(id, TimeUtils.NanosecondsOfSeconds(5));
+	}
+
+	public DefaultPowerup(int id, long lifeTime)
+	{
+		this.id = id;
+		this.lifetimeOnBoard = lifeTime;
+		this.alive = true;
 	}
 
 	@Override
 	public boolean isAlive(long elapsedTime)
 	{
 
+		if (!alive)
+		{
+			return alive;
+		}
+
+		//GGF. weitere berechnungen, die für ein ableben sorgen könnten
 		if (fetched)
 		{
 
 			alive = false;
-			return false;
 		}
 
 		time += elapsedTime;
@@ -40,13 +52,14 @@ public abstract class DefaultPowerup extends Field implements Powerup
 
 			alive = false;
 		}
-		else
-		{
-
-			alive = true;
-		}
 
 		return alive;
+	}
+
+	public void die()
+	{
+
+		alive = false;
 	}
 
 	@Override
@@ -76,7 +89,7 @@ public abstract class DefaultPowerup extends Field implements Powerup
 	public int getId()
 	{
 
-		return getImage();
+		return id;
 	}
 
 	public long getLifetimeOnBoard()
