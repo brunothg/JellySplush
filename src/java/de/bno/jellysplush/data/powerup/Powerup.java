@@ -21,7 +21,7 @@ public interface Powerup {
 
 	public void manipulatePlayGround(PlayGround playground);
 
-	public int getId();
+	public int getImageId();
 
 	public Powerup clone();
 }

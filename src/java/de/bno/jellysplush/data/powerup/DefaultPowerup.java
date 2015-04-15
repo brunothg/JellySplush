@@ -87,7 +87,7 @@ public abstract class DefaultPowerup implements Powerup
 	}
 
 	@Override
-	public int getId()
+	public int getImageId()
 	{
 
 		return id;

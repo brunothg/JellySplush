@@ -37,10 +37,10 @@ public class PowerupUtils {
 			while (iterator.hasNext()) {
 
 				Powerup next = iterator.next();
-				if (!contains(usedPowerups, next.getId())) {
+				if (!contains(usedPowerups, next.getImageId())) {
 
 					iterator.remove();
-					System.out.println("Remove powerup " + next.getId());
+					System.out.println("Remove powerup " + next.getImageId());
 				}
 			}
 		}

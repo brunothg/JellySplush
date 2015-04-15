@@ -14,7 +14,7 @@ public class PowerupField extends Field implements Powerup
 
 		super(FieldType.POWERUP);
 		this.powerup = powerup;
-		setImage(this.powerup.getId());
+		setImage(this.powerup.getImageId());
 	}
 
 	public Powerup getPowerup()
@@ -63,10 +63,10 @@ public class PowerupField extends Field implements Powerup
 	}
 
 	@Override
-	public int getId()
+	public int getImageId()
 	{
 
-		return powerup.getId();
+		return powerup.getImageId();
 	}
 
 	@Override
