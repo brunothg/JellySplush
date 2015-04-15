@@ -8,4 +8,6 @@ public interface JellyModificator {
 	public boolean isAlive(long elapsedTime);
 
 	public void modifiy(Game game, JellyFish fish, long elapsedTime);
+
+	public int getImageId();
 }

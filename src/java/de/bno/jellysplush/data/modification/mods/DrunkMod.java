@@ -19,6 +19,10 @@ public class DrunkMod extends DefaultModificator {
 	private long time = 0;
 	private long modTime = 0;
 
+	public DrunkMod() {
+		super(6);
+	}
+
 	@Override
 	public void modifiy(Game game, JellyFish fish, long elapsedTime) {
 

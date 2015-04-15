@@ -12,6 +12,11 @@ public class InvincibleMod extends DefaultModificator {
 	private long time = 0;
 	private boolean alive = true;
 
+	public InvincibleMod() {
+
+		super(7);
+	}
+
 	@Override
 	public void modifiy(Game game, JellyFish fish, long elapsedTime) {
 
