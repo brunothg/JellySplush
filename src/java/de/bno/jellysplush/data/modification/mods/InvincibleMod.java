@@ -5,28 +5,27 @@ import de.bno.jellysplush.data.Game;
 import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.modification.DefaultModificator;
 
-public class InvincibleMod extends DefaultModificator {
+public class InvincibleMod extends DefaultModificator
+{
 
 	private static final long maxTime = TimeUtils.NanosecondsOfSeconds(4);
 
 	private long time = 0;
 	private boolean alive = true;
 
-	public InvincibleMod() {
-
-		super(7);
-	}
-
 	@Override
-	public void modifiy(Game game, JellyFish fish, long elapsedTime) {
+	public void modifiy(Game game, JellyFish fish, long elapsedTime)
+	{
 
-		if (!alive) {
+		if (!alive)
+		{
 			return;
 		}
 
 		time = Math.min(time + elapsedTime, maxTime);
 
-		if (time >= maxTime) {
+		if (time >= maxTime)
+		{
 
 			alive = false;
 		}
@@ -35,7 +34,8 @@ public class InvincibleMod extends DefaultModificator {
 	}
 
 	@Override
-	public boolean isAlive(long elapsedTime) {
+	public boolean isAlive(long elapsedTime)
+	{
 
 		return alive;
 	}

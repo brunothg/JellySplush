@@ -10,28 +10,25 @@ import de.bno.jellysplush.data.JellyFish;
 import de.bno.jellysplush.data.Position;
 import de.bno.jellysplush.data.modification.DefaultModificator;
 
-public class DrunkMod extends DefaultModificator {
+public class DrunkMod extends DefaultModificator
+{
 
 	private static final long maxTime = TimeUtils.NanosecondsOfSeconds(3);
-	private static final long maxModTime = TimeUtils
-			.NanosecondsOfMilliseconds(900);
+	private static final long maxModTime = TimeUtils.NanosecondsOfMilliseconds(900);
 
 	private long time = 0;
 	private long modTime = 0;
 
-	public DrunkMod() {
-		super(6);
-	}
-
 	@Override
-	public void modifiy(Game game, JellyFish fish, long elapsedTime) {
+	public void modifiy(Game game, JellyFish fish, long elapsedTime)
+	{
 
 		modTime += elapsedTime;
 
-		if (modTime >= maxModTime) {
+		if (modTime >= maxModTime)
+		{
 
-			List<Position> pos = Arrays.asList(game.getPlayground()
-					.getEmptyFields());
+			List<Position> pos = Arrays.asList(game.getPlayground().getEmptyFields());
 			Collections.shuffle(pos);
 
 			fish.setPosition(pos.get(0));
@@ -41,11 +38,13 @@ public class DrunkMod extends DefaultModificator {
 	}
 
 	@Override
-	public boolean isAlive(long elapsedTime) {
+	public boolean isAlive(long elapsedTime)
+	{
 
 		time = Math.min(time + elapsedTime, maxTime);
 
-		if (time >= maxTime) {
+		if (time >= maxTime)
+		{
 
 			return false;
 		}
