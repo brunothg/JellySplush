@@ -67,7 +67,7 @@ public class Settings
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			LOG.warn("Could not load boolean property {}", key, e);
 			return def;
 		}
 

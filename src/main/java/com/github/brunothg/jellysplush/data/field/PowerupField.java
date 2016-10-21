@@ -75,4 +75,10 @@ public class PowerupField extends Field implements Powerup
 
 		return powerup.clone();
 	}
+
+	@Override
+	public String toString()
+	{
+		return "PowerupField [powerup=" + powerup + ", getImageId()=" + getImageId() + "]";
+	}
 }

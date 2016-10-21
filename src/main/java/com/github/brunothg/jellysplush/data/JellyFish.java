@@ -202,4 +202,11 @@ public class JellyFish
 	{
 		this.invincible = invincible;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "JellyFish [pos=" + pos + ", controller=" + controller + ", color=" + color + ", lifes=" + lifes
+			+ ", points=" + points + ", speed=" + speed + ", invincible=" + invincible + ", mods=" + mods + "]";
+	}
 }

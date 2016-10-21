@@ -11,6 +11,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.EventListener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.brunothg.game.engine.d2.commons.Point;
 import com.github.brunothg.game.engine.d2.scene.Scene;
 import com.github.brunothg.jellysplush.data.JellyFish;
@@ -18,6 +21,7 @@ import com.github.brunothg.jellysplush.gui.start.ColorPicker;
 
 public class EndScene implements Scene, KeyListener
 {
+	private static final Logger LOG = LoggerFactory.getLogger(EndScene.class);
 
 	private static final String WIN_TEXT = "The winner is, with %d points and a life difference of %d ...";
 
@@ -54,7 +58,7 @@ public class EndScene implements Scene, KeyListener
 			cp.setColor(fish1.getColor());
 		}
 
-		System.out.println(winText);
+		LOG.info(winText);
 	}
 
 	@Override

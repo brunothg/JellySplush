@@ -38,4 +38,10 @@ public class Field
 		this.image = image;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Field [fieldType=" + fieldType + ", image=" + image + "]";
+	}
+
 }

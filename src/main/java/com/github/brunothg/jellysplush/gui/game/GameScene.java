@@ -256,7 +256,7 @@ public class GameScene implements Scene
 	{
 
 		isGameOver = true;
-		System.out.println("Game Over");
+		LOG.info("Game over");
 
 		if (getGameListener() == null)
 		{
@@ -297,24 +297,24 @@ public class GameScene implements Scene
 			switch (fieldType)
 			{
 				case NAIL:
+					LOG.info("Run into {} at [{}, {}]", fieldType, posX, posY);
 					if (!fish.isInvincible())
 					{
 						fish.setLifes(fish.getLifes() - 1);
 					}
 					pg.setFieldType(posX, posY, FieldType.EMPTY);
 					nailCount++;
-					System.out.println("Nail!!!");
 				break;
 				case JELLY:
+					LOG.info("Run into {} at [{}, {}]", fieldType, posX, posY);
 					fish.setPoints(fish.getPoints() + 1);
 					pg.setFieldType(posX, posY, FieldType.EMPTY);
 					jellyCount++;
-					System.out.println("Jelly!!!");
 				break;
 				case POWERUP:
+					LOG.info("Run into {} at [{}, {}]", fieldType, posX, posY);
 					jellyFetchesPowerup(getField(posX, posY), fish);
 					pg.setFieldType(posX, posY, FieldType.EMPTY);
-					System.out.println("Powerup!!!");
 				break;
 				default:
 				break;
@@ -334,6 +334,7 @@ public class GameScene implements Scene
 		}
 
 		Powerup powerup = (Powerup) field;
+		LOG.info("Run into {} {}", field.getFieldType(), powerup);
 
 		JellyFish[] jellyFishs = game.getJellyFishs();
 		JellyFish[] otherFishs = new JellyFish[jellyFishs.length - 1];

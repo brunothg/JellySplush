@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.brunothg.game.engine.time.TimeUtils;
 import com.github.brunothg.jellysplush.Constants;
 import com.github.brunothg.jellysplush.Settings;
@@ -17,6 +20,8 @@ import com.github.brunothg.jellysplush.data.field.PowerupField;
 
 public class DefaultStrategy implements PowerupStrategy
 {
+
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultStrategy.class);
 
 	private static final long POWERUP_CREATION_TIME = Math.abs(
 		TimeUtils.NanosecondsOfSeconds(Settings.getInt(Settings.KEY_POWERUP_TIME, Constants.POWERUP_TIME_DEFAULT)));
@@ -38,8 +43,10 @@ public class DefaultStrategy implements PowerupStrategy
 	@Override
 	public void playerConsumedItem(JellyFish fish, int x, int y, Game game)
 	{
+
 		Field consumedField = game.getPlayground().getField(x, y);
 		FieldType fieldType = consumedField.getFieldType();
+		LOG.info("{} consumed {} at [{}, {}]", fish, fieldType, x, y);
 
 		switch (fieldType)
 		{
@@ -65,6 +72,7 @@ public class DefaultStrategy implements PowerupStrategy
 		}
 
 		Position position = fields.get(0);
+		LOG.info("Generate powerup {} at {}", powerup, position);
 		playground.setField((int) position.getX(), (int) position.getY(), new PowerupField(powerup.clone()));
 	}
 }
