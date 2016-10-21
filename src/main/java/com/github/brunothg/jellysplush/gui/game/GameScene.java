@@ -8,6 +8,9 @@ import java.util.Collections;
 import java.util.EventListener;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.brunothg.game.engine.control.GameKeyAdapter;
 import com.github.brunothg.game.engine.d2.commons.Point;
 import com.github.brunothg.game.engine.d2.object.image.ImageSceneObject;
@@ -32,6 +35,7 @@ import com.github.brunothg.jellysplush.gui.KeyboardController;
 
 public class GameScene implements Scene
 {
+	private static final Logger LOG = LoggerFactory.getLogger(GameScene.class);
 
 	private static final int MAX_POINTS_DEFAULT = 30;
 	private static final int MAX_LIFES_DEFAULT = 4;
@@ -403,7 +407,7 @@ public class GameScene implements Scene
 						case POWERUP:
 						default:
 							playground.setFieldType(x, y, FieldType.JELLY);
-							System.out.println(x + " " + y);
+							LOG.info("new jelly at [{}, {}]", x, y);
 						break;
 
 					}
@@ -425,6 +429,7 @@ public class GameScene implements Scene
 
 			Position pos = fields.get((int) (Math.random() * (fields.size() - 1)));
 			pg.setFieldType((int) (pos.getX()), (int) (pos.getY()), type);
+			LOG.info("generated {} at [{}, {}]", type, (int) (pos.getX()), (int) (pos.getY()));
 
 			return true;
 		}

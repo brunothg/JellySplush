@@ -1,6 +1,14 @@
 package com.github.brunothg.jellysplush.gui.start;
 
-import static java.awt.event.KeyEvent.*;
+import static java.awt.event.KeyEvent.VK_A;
+import static java.awt.event.KeyEvent.VK_D;
+import static java.awt.event.KeyEvent.VK_DOWN;
+import static java.awt.event.KeyEvent.VK_ENTER;
+import static java.awt.event.KeyEvent.VK_LEFT;
+import static java.awt.event.KeyEvent.VK_RIGHT;
+import static java.awt.event.KeyEvent.VK_S;
+import static java.awt.event.KeyEvent.VK_UP;
+import static java.awt.event.KeyEvent.VK_W;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -14,6 +22,9 @@ import java.awt.event.KeyListener;
 import java.awt.geom.Rectangle2D;
 import java.util.EventListener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.brunothg.game.engine.d2.commons.Point;
 import com.github.brunothg.game.engine.d2.scene.Scene;
 import com.github.brunothg.jellysplush.Constants;
@@ -21,6 +32,7 @@ import com.github.brunothg.jellysplush.Settings;
 
 public class StartScene implements Scene, KeyListener
 {
+	private static final Logger LOG = LoggerFactory.getLogger(StartScene.class);
 
 	private static final String TXT = "Choose your colors - Press [Enter] to start";
 	private static final double TXT_LOCATION_X = 0.1;
@@ -226,7 +238,7 @@ public class StartScene implements Scene, KeyListener
 			cp1.setColor(colors[selCol1]);
 		}
 
-		System.out.println("Down... " + right);
+		LOG.info("Down... right={}", right);
 	}
 
 	private void up(boolean right)
@@ -257,7 +269,7 @@ public class StartScene implements Scene, KeyListener
 			cp1.setColor(colors[selCol1]);
 		}
 
-		System.out.println("Up... " + right);
+		LOG.info("Up... right={}", right);
 	}
 
 	private void select()
@@ -265,7 +277,7 @@ public class StartScene implements Scene, KeyListener
 
 		playCountdown();
 
-		System.out.println("Select...");
+		LOG.debug("Select...");
 
 		ActionListener al = getActionListener();
 

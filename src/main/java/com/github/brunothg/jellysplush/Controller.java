@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.brunothg.game.engine.d2.frame.SwingGameFrame;
 import com.github.brunothg.jellysplush.data.JellyFish;
 import com.github.brunothg.jellysplush.data.powerup.DefaultStrategy;
@@ -15,6 +18,7 @@ import com.github.brunothg.jellysplush.gui.start.StartScene;
 
 public class Controller implements GameListener
 {
+	private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
 
 	private SwingGameFrame display;
 
@@ -52,8 +56,7 @@ public class Controller implements GameListener
 
 	private void setGameScene(Color c1, Color c2)
 	{
-
-		System.out.println(String.format("Start game: Left[%s] - Right[%s]", c1.toString(), c2.toString()));
+		LOG.info("Start game: Left[{}] - Right[{}]", c1, c2);
 
 		PowerupStrategy strategy = new DefaultStrategy();
 
@@ -67,7 +70,7 @@ public class Controller implements GameListener
 		}
 		catch (Exception e)
 		{
-			System.out.println("Strategy could not be loaded " + e.getMessage());
+			LOG.warn("Strategy could not be loaded", e);
 		}
 
 		final GameScene gameScene = new GameScene(c1, c2, strategy);
@@ -80,8 +83,7 @@ public class Controller implements GameListener
 	@Override
 	public void gameOver(JellyFish fish1, JellyFish fish2, boolean rightIsWiner)
 	{
-
-		System.out.println("-> Game Over Screen");
+		LOG.debug("-> Game Over Screen");
 
 		final EndScene endScene = new EndScene(fish1, fish2, rightIsWiner);
 		endScene.setActionListener(new ActionListener()
