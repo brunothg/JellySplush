@@ -37,7 +37,9 @@ public class AnimatedSprite extends SceneObject
 	{
 		while (frames > 0)
 		{
+			frames--;
 			x++;
+
 			if (x >= sprite.getColumns())
 			{
 				x = 0;
