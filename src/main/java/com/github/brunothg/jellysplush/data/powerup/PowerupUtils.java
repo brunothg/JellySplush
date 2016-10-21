@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.brunothg.jellysplush.Settings;
 import com.github.brunothg.jellysplush.data.powerup.powerups.DrunkPowerup;
 import com.github.brunothg.jellysplush.data.powerup.powerups.LifePowerup;
@@ -16,6 +19,7 @@ import com.github.brunothg.jellysplush.data.powerup.powerups.WallPowerup;
 
 public class PowerupUtils
 {
+	private static final Logger LOG = LoggerFactory.getLogger(PowerupUtils.class);
 
 	private static final List<Powerup> powerups = new ArrayList<Powerup>(2);
 
@@ -44,7 +48,7 @@ public class PowerupUtils
 				{
 
 					iterator.remove();
-					System.out.println("Remove powerup " + next.getImageId());
+					LOG.info("Remove powerup {}", next);
 				}
 			}
 		}

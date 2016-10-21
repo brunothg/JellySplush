@@ -13,7 +13,7 @@ public abstract class DefaultPowerup implements Powerup
 	private long lifetimeOnBoard;
 
 	private boolean alive = true;
-	boolean fetched = false;
+	private boolean fetched = false;
 
 	private int id;
 
@@ -105,4 +105,11 @@ public abstract class DefaultPowerup implements Powerup
 
 	@Override
 	public abstract Powerup clone();
+
+	@Override
+	public String toString()
+	{
+		return "DefaultPowerup [time=" + time + ", lifetimeOnBoard=" + lifetimeOnBoard + ", alive=" + alive
+			+ ", fetched=" + fetched + ", id=" + id + "]";
+	}
 }

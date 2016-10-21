@@ -4,8 +4,13 @@ import java.awt.Color;
 import java.io.FileInputStream;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Settings
 {
+
+	private static final Logger LOG = LoggerFactory.getLogger(Settings.class);
 
 	public static final String KEY_MAX_LIFES = "max_lifes";
 	public static final String KEY_MAX_POINTS = "max_points";
@@ -31,7 +36,7 @@ public class Settings
 		}
 		catch (Exception e)
 		{
-			System.err.println(" -> Properties load ex: " + e.getMessage());
+			LOG.warn("Could not load properties", e);
 		}
 	}
 
@@ -56,7 +61,7 @@ public class Settings
 				}
 				catch (Exception e)
 				{
-					System.err.println(key + " -> Properties read ex: " + e.getMessage());
+					LOG.warn("Could not load boolean property {}", key, e);
 				}
 			}
 		}
@@ -90,7 +95,7 @@ public class Settings
 				}
 				catch (Exception e)
 				{
-					System.err.println(key + " -> Properties read ex: " + e.getMessage());
+					LOG.warn("Could not load color property {}", key, e);
 				}
 			}
 		}
@@ -132,7 +137,7 @@ public class Settings
 				}
 				catch (Exception e)
 				{
-					System.err.println(key + " -> Properties read ex: " + e.getMessage());
+					LOG.warn("Could not load color array property {}", key, e);
 				}
 			}
 		}
@@ -166,7 +171,7 @@ public class Settings
 				}
 				catch (Exception e)
 				{
-					System.err.println(key + " -> Properties read ex: " + e.getMessage());
+					LOG.warn("Could not load integer property {}", key, e);
 				}
 			}
 		}
@@ -212,7 +217,7 @@ public class Settings
 				}
 				catch (Exception e)
 				{
-					System.err.println(key + " -> Properties read ex: " + e.getMessage());
+					LOG.warn("Could not load integer array property {}", key, e);
 				}
 			}
 		}
@@ -246,7 +251,7 @@ public class Settings
 				}
 				catch (Exception e)
 				{
-					System.err.println(key + " -> Properties read ex: " + e.getMessage());
+					LOG.warn("Could not load double property {}", key, e);
 				}
 			}
 		}
@@ -282,7 +287,7 @@ public class Settings
 		}
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			LOG.warn("Could not load class property {}", key, e);
 		}
 
 		return ret;
